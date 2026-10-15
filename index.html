@@ -9,7 +9,7 @@
 <button id="refresh">↻ Refresh scores</button><span id="updated" class="note" aria-live="polite">Preparing scoreboard…</span><div id="games" class="grid"></div>
 <footer>Score source: ESPN public college football scoreboard (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Nebraska's best-pick result counts double. For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-const picks=[['Oklahoma','Kentucky',-6.5,'7:30 PM',false],['Alabama','Tennessee',-5.5,'3:30 PM',false],['Missouri','Ole Miss',7.5,'3:30 PM',false],['Nebraska','Oregon',21.5,'11:00 PM',true],['Indiana','Ohio State',3.5,'12:00 PM',false],['LSU','Mississippi State',-10.5,'12:00 PM',false]];
+const picks=[['Indiana','Ohio State',3.5,'12:00 PM',false],['LSU','Mississippi State',-10.5,'12:00 PM',false],['Alabama','Tennessee',-5.5,'3:30 PM',false],['Missouri','Ole Miss',7.5,'3:30 PM',false],['Oklahoma','Kentucky',-6.5,'7:30 PM',false],['Nebraska','Oregon',21.5,'11:00 PM',true]];
 const aliases={'Ole Miss':['ole miss','mississippi rebels'],'LSU':['lsu','louisiana state']};
 const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
 const equivalent=(x,s)=>{let names=[x?.team?.displayName,x?.team?.shortDisplayName,x?.team?.location,x?.team?.name,x?.team?.abbreviation].filter(Boolean).map(norm);return (aliases[s]||[s]).some(t=>names.some(n=>n===norm(t)||n.startsWith(norm(t)+' ')))};
