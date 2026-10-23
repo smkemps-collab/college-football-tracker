@@ -6,11 +6,12 @@
 <body><h1>Lloyd Martin Pick 'Em Tracker</h1>
 <p>Weekly college football selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
-<button type="button" class="tab active" id="tab-current" role="tab" aria-selected="true" aria-controls="panel-current" tabindex="0">Current Picks · Oct 22–23</button>
-<button type="button" class="tab" id="tab-previous" role="tab" aria-selected="false" aria-controls="panel-previous" tabindex="-1">Previous Picks · Oct 15–17</button>
+<button type="button" class="tab active" id="tab-current" role="tab" aria-selected="true" aria-controls="panel-current" tabindex="0">Week 8 · Oct 24</button>
+<button type="button" class="tab" id="tab-previous" role="tab" aria-selected="false" aria-controls="panel-previous" tabindex="-1">Oct 15–17 Archive</button>
+<button type="button" class="tab" id="tab-midweek" role="tab" aria-selected="false" aria-controls="panel-midweek" tabindex="-1">Oct 22–23 Archive</button>
 </nav>
 <section id="panel-current" role="tabpanel" aria-labelledby="tab-current">
-<h2>Thursday & Friday · October 22–23 ATS picks</h2><p class="note">Four additional picks · tracked separately from the October 17 Splash contest and DraftKings parlay · lines recorded October 22</p><div class="stats"><div class="stat"><small>Current ATS record (W–L–P)</small><strong id="current-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="current-completed">0 / 4</strong></div></div>
+<h2>Saturday · October 24 Pick’Em Card</h2><p class="note">Six contest ATS selections · Cincinnati is the 2× Best Pick · updated contest lines</p><div class="stats"><div class="stat"><small>Current ATS record (W–L–P)</small><strong id="current-record">0–0–0</strong></div><div class="stat"><small>Contest points</small><strong id="current-points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="current-completed">0 / 6</strong></div></div>
 <button id="refresh-current" type="button">↻ Refresh scores</button><span id="current-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="midweek-picks"></div>
 </section>
 <section id="panel-previous" role="tabpanel" aria-labelledby="tab-previous" hidden>
@@ -19,13 +20,25 @@
 <div class="stats"><div class="stat"><small>Final record (W–L–P)</small><strong id="record">0–0–0</strong></div><div class="stat"><small>Contest points earned</small><strong id="points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="completed">0 / 6</strong></div><div class="stat"><small>Currently covering</small><strong id="covering">—</strong></div></div>
 <h2>Thursday · DraftKings parlay</h2><div id="moneyline" class="grid"></div><h2>Saturday · Splash ATS picks</h2><button id="refresh">↻ Refresh scores</button><span id="updated" class="note" aria-live="polite">Preparing scoreboard…</span><div id="games" class="grid"></div>
 </section>
-<footer>Live scores and ATS results for current and previous picks: ESPN public college football scoreboard (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Nebraska's best-pick result counts double. For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
+<section id="panel-midweek" role="tabpanel" hidden aria-labelledby="tab-midweek">
+<h2>Thursday & Friday · October 22–23 ATS picks</h2><p class="note">Four additional picks · tracked separately from the October 17 Splash contest and DraftKings parlay · lines recorded October 22</p><div class="stats"><div class="stat"><small>Current ATS record (W–L–P)</small><strong id="midweek-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="midweek-completed">0 / 4</strong></div></div>
+<button id="refresh-midweek" type="button">↻ Refresh scores</button><span id="midweek-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="archived-midweek-picks"></div>
+</section>
+<footer>Live scores and ATS results for all pick weeks: ESPN public college football scoreboard (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Cincinnati this week; Nebraska in the previous contest). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-function selectTab(id){for(const key of ['current','previous']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
-for(const key of ['current','previous']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const next=key==='current'?'previous':'current';selectTab(e.key==='Home'?'current':e.key==='End'?'previous':next);document.getElementById('tab-'+(e.key==='Home'?'current':e.key==='End'?'previous':next)).focus();}});}
+function selectTab(id){for(const key of ['current','previous','midweek']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
+for(const key of ['current','previous','midweek']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['current','midweek','previous'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[2]:order[(idx+(e.key==='ArrowRight'?1:2))%3];selectTab(next);document.getElementById('tab-'+next).focus();}});}
 const picks=[['Indiana','Ohio State',3.5,'12:00 PM',false],['LSU','Mississippi State',-10.5,'12:00 PM',false],['Alabama','Tennessee',-5.5,'3:30 PM',false],['Missouri','Ole Miss',7.5,'3:30 PM',false],['Oklahoma','Kentucky',-6.5,'7:30 PM',false],['Nebraska','Oregon',21.5,'11:00 PM',true]];
 // Add future selections here with their own YYYYMMDD game date. The scoreboard refresh automatically includes every listed date.
 const currentPicks=[
+{team:'Michigan',opponent:'Indiana',spread:7.5,date:'20261024',time:'12:00 PM',venue:'vs.',tv:'FOX'},
+{team:'Cincinnati',opponent:'Texas Tech',spread:10.5,date:'20261024',time:'12:00 PM',venue:'vs.',tv:'FS1',best:true},
+{team:'South Carolina',opponent:'Tennessee',spread:-2.5,date:'20261024',time:'3:30 PM',venue:'vs.',tv:'ESPN'},
+{team:'UCF',opponent:'BYU',spread:6.5,date:'20261024',time:'3:30 PM',venue:'vs.',tv:'FOX'},
+{team:'USC',opponent:'Wisconsin',spread:-2.5,date:'20261024',time:'7:30 PM',venue:'at',tv:'NBC / Peacock'},
+{team:'Iowa State',opponent:'Arizona',spread:9.5,date:'20261024',time:'7:30 PM',venue:'at',tv:'ESPN2'}
+];
+const midweekPicks=[
 {team:'Liberty',opponent:'Kennesaw State',spread:-9.5,date:'20261022',time:'7:00 PM',venue:'at'},
 {team:'Memphis',opponent:'East Carolina',spread:-9.5,date:'20261022',time:'7:30 PM',venue:'vs.'},
 {team:'UMass',opponent:'UConn',spread:14.5,date:'20261023',time:'7:00 PM',venue:'at'},
@@ -38,15 +51,20 @@ const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/\s+
 const equivalent=(x,s)=>{let names=[x?.team?.displayName,x?.team?.shortDisplayName,x?.team?.location,x?.team?.name,x?.team?.abbreviation].filter(Boolean).map(norm);return (aliases[s]||[s]).some(t=>names.some(n=>n===norm(t)||n.startsWith(norm(t)+' ')))};
 let events=[];
 const readableDate=d=>{const dt=new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6,8)+'T12:00:00Z');return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});};
-function renderCurrent(){let w=0,l=0,push=0,done=0;document.getElementById('midweek-picks').innerHTML=currentPicks.map(p=>{
+function renderPickCollection(items,gridId,recordId,completedId,pointsId){
+let w=0,l=0,push=0,done=0,points=0;
+document.getElementById(gridId).innerHTML=items.map(p=>{
 const f=find([p.team,p.opponent,p.spread]),signed=(p.spread>0?'+':'')+p.spread;
 let status='Scheduled',cls='',score='Not started',details=readableDate(p.date)+' · '+p.time+' ET';
-if(f){if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){w++;status='Covered';cls='W'}else if(f.margin<0){l++;status='Missed';cls='L'}else{push++;status='Push';cls='P'}}else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';
+if(f){if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){w++;points+=p.best?2:1;status='Covered';cls='W'}else if(f.margin<0){l++;status='Missed';cls='L'}else{push++;points+=p.best?1:.5;status='Push';cls='P'}}else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';
 if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;details='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+(f.detail||'')}else if(f.detail)details=f.detail;}
-return '<div class="card"><div class="pick">'+p.team+' '+signed+'</div><p>'+p.venue+' '+p.opponent+' · '+readableDate(p.date)+' · '+p.time+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+details+'</div></div>';
+return '<div class="card"><div class="pick">'+p.team+' '+signed+(p.best?' <span class="best">★ 2× BEST</span>':'')+'</div><p>'+p.venue+' '+p.opponent+' · '+readableDate(p.date)+' · '+p.time+' ET'+(p.tv?' · '+p.tv:'')+'</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+details+'</div></div>';
 }).join('');
-document.getElementById('current-record').textContent=w+'–'+l+'–'+push;document.getElementById('current-completed').textContent=done+' / '+currentPicks.length;
+document.getElementById(recordId).textContent=w+'–'+l+'–'+push;
+document.getElementById(completedId).textContent=done+' / '+items.length;
+if(pointsId)document.getElementById(pointsId).textContent=points+' / 7';
 }
+function renderCurrent(){renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
 function find(p){for(const e of events){const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
 function renderMoneyline(){
@@ -58,21 +76,24 @@ document.getElementById('moneyline').innerHTML='<div class="card"><div class="pi
 }
 function render(){renderMoneyline();let wins=0,losses=0,pushes=0,points=0,done=0,cover=0,live=0;document.getElementById('games').innerHTML=picks.map(p=>{const f=find(p),signed=p[2]>0?'+'+p[2]:p[2];let status='Scheduled',cls='',score='Not started',extra='Kickoff '+p[3]+' ET';if(f){if(f.final){done++;if(f.margin>0){wins++;points+=p[4]?2:1;status='Covered';cls='W'}else if(f.margin<0){losses++;status='Missed';cls='L'}else{pushes++;points+=p[4]?1:0.5;status='Push';cls='P'}}else if(f.live){live++;status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';if(f.margin>0)cover++}if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p[0]+' '+f.sa+' · '+p[1]+' '+f.sb;extra='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+f.detail}else if(f.detail)extra=f.detail}return '<div class="card"><div class="pick">'+p[0]+' '+signed+(p[4]?' <span class="best">★ 2× BEST</span>':'')+'</div><p>vs. '+p[1]+' · '+p[3]+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><span class="note">'+extra+'</span></div>'}).join('');document.getElementById('record').textContent=wins+'–'+losses+'–'+pushes;document.getElementById('points').textContent=points+' / 7';document.getElementById('completed').textContent=done+' / 6';document.getElementById('covering').textContent=live?cover+' / '+live+' live':'—'}
 async function refresh(){
-const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated');
-label.textContent=' Checking ESPN…';currentLabel.textContent=' Checking ESPN…';
-const dates=[...new Set(['20261015','20261017',...currentPicks.map(p=>p.date)])];
+const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated'),midweekLabel=document.getElementById('midweek-updated');
+label.textContent=' Checking ESPN…';currentLabel.textContent=' Checking ESPN…';midweekLabel.textContent=' Checking ESPN…';
+const dates=[...new Set(['20261015','20261017',...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date)])];
 const results=await Promise.allSettled(dates.map(async date=>{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=500&t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return {date,data:await r.json()}}));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
-if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;render();renderCurrent();return;}
+if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;midweekLabel.textContent=label.textContent;render();renderCurrent();return;}
 events=good.flatMap(x=>x.data.events||[]);
 const matches=picks.filter(p=>find(p)).length;
 const currentMatches=currentPicks.filter(p=>find([p.team,p.opponent,p.spread])).length;
+const midweekMatches=midweekPicks.filter(p=>find([p.team,p.opponent,p.spread])).length;
 const failed=results.length-good.length,stamp=new Date().toLocaleTimeString();
 label.textContent=' Updated '+stamp+' · '+matches+'/6 previous ATS games matched'+(failed?' · '+failed+' date feeds unavailable':'');
 currentLabel.textContent=' Updated '+stamp+' · '+currentMatches+'/'+currentPicks.length+' current games matched'+(failed?' · '+failed+' date feeds unavailable':'');
+midweekLabel.textContent=' Updated '+stamp+' · '+midweekMatches+'/'+midweekPicks.length+' archived midweek games matched';
 render();renderCurrent();
 }
 document.getElementById('refresh').addEventListener('click',refresh);
 document.getElementById('refresh-current').addEventListener('click',refresh);
+document.getElementById('refresh-midweek').addEventListener('click',refresh);
 render();renderCurrent();refresh();setInterval(refresh,60000);
 </script></body></html>
