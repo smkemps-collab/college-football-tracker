@@ -13,6 +13,7 @@
 <section id="panel-current" role="tabpanel" aria-labelledby="tab-current">
 <h2>Saturday · October 24 Pick’Em Card</h2><p class="note">Six contest ATS selections · Cincinnati is the 2× Best Pick · updated contest lines</p><div class="stats"><div class="stat"><small>Current ATS record (W–L–P)</small><strong id="current-record">0–0–0</strong></div><div class="stat"><small>Contest points</small><strong id="current-points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="current-completed">0 / 6</strong></div></div>
 <button id="refresh-current" type="button">↻ Refresh scores</button><span id="current-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="midweek-picks"></div>
+<h2>October 23–24 · Moneyline picks</h2><p class="note">Five selections recorded from your screenshot · Air Force was added during live play on Friday · tracked separately from ATS contest points. Odds, stake, and whether these form a parlay were not shown.</p><div class="stats"><div class="stat"><small>Moneyline record (W–L–P)</small><strong id="new-ml-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="new-ml-completed">0 / 5</strong></div></div><div class="grid" id="new-ml-picks"></div>
 </section>
 <section id="panel-previous" role="tabpanel" aria-labelledby="tab-previous" hidden>
 <p>October 15–17, 2026 · Six ATS contest selections + one separate parlay · Nebraska is the 2× Best Pick</p>
@@ -24,7 +25,7 @@
 <h2>Thursday & Friday · October 22–23 ATS picks</h2><p class="note">Four additional picks · tracked separately from the October 17 Splash contest and DraftKings parlay · lines recorded October 22</p><div class="stats"><div class="stat"><small>Current ATS record (W–L–P)</small><strong id="midweek-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="midweek-completed">0 / 4</strong></div></div>
 <button id="refresh-midweek" type="button">↻ Refresh scores</button><span id="midweek-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="archived-midweek-picks"></div>
 </section>
-<footer>Live scores and ATS results for all pick weeks: ESPN public college football scoreboard (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Cincinnati this week; Nebraska in the previous contest). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
+<footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football scoreboard (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Cincinnati this week; Nebraska in the previous contest). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
 function selectTab(id){for(const key of ['current','previous','midweek']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
 for(const key of ['current','previous','midweek']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['current','midweek','previous'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[2]:order[(idx+(e.key==='ArrowRight'?1:2))%3];selectTab(next);document.getElementById('tab-'+next).focus();}});}
@@ -43,6 +44,13 @@ const midweekPicks=[
 {team:'Memphis',opponent:'East Carolina',spread:-9.5,date:'20261022',time:'7:30 PM',venue:'vs.'},
 {team:'UMass',opponent:'UConn',spread:14.5,date:'20261023',time:'7:00 PM',venue:'at'},
 {team:'Air Force',opponent:'Wyoming',spread:-4.5,date:'20261023',time:'9:00 PM',venue:'at'}
+];
+const moneylinePicks=[
+{team:'Sacramento State',opponent:'Ball State',date:'20261024',time:'3:30 PM',venue:'at'},
+{team:'Tulane',opponent:'UTSA',date:'20261024',time:'8:00 PM',venue:'vs.'},
+{team:'Air Force',opponent:'Wyoming',date:'20261023',time:'9:00 PM',venue:'at',liveEntry:true},
+{team:'Michigan',opponent:'Indiana',date:'20261024',time:'12:00 PM',venue:'vs.'},
+{team:'Auburn',opponent:'LSU',date:'20261024',time:'12:00 PM',venue:'vs.'}
 ];
 const mlPick=['UAB','East Carolina',0,'7:30 PM'];
 const totalPick=['Georgia Southern','Old Dominion',0,'7:30 PM'];
@@ -64,9 +72,25 @@ document.getElementById(recordId).textContent=w+'–'+l+'–'+push;
 document.getElementById(completedId).textContent=done+' / '+items.length;
 if(pointsId)document.getElementById(pointsId).textContent=points+' / 7';
 }
-function renderCurrent(){renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
+function renderNewMoneylines(){
+let w=0,l=0,p=0,done=0;
+document.getElementById('new-ml-picks').innerHTML=moneylinePicks.map(pick=>{
+const f=find([pick.team,pick.opponent,0],pick.date);
+let status='Scheduled',cls='',score='Not started',detail=readableDate(pick.date)+' · '+pick.time+' ET';
+if(f){
+if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){w++;status='Won';cls='W'}else if(f.margin<0){l++;status='Lost';cls='L'}else{p++;status='Push';cls='P'}}
+else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently leading':f.margin<0?'Currently trailing':'Tied';
+if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb))score=pick.team+' '+f.sa+' · '+pick.opponent+' '+f.sb;
+if(f.detail)detail=f.detail;
+}
+return '<div class="card"><div class="pick">'+pick.team+' moneyline</div><p>'+pick.venue+' '+pick.opponent+' · '+readableDate(pick.date)+' · '+pick.time+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+detail+(pick.liveEntry?' · Recorded during live play':'')+'</div></div>';
+}).join('');
+document.getElementById('new-ml-record').textContent=w+'–'+l+'–'+p;
+document.getElementById('new-ml-completed').textContent=done+' / '+moneylinePicks.length;
+}
+function renderCurrent(){renderNewMoneylines();renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
-function find(p){for(const e of events){const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
+function find(p,date){for(const e of events){if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
 function renderMoneyline(){
 const a=find(mlPick),b=find(totalPick);
 function leg(f,total){if(!f)return {label:'Scheduled',result:null,score:'Not started'};const score=(total?'Georgia Southern':'UAB')+' '+f.sa+' · '+(total?'Old Dominion':'East Carolina')+' '+f.sb;const won=total?f.sa<26.5:f.sa>f.sb;return {label:f.final?(won?'Won':'Lost'):f.live?(total?(won?'Under 26.5 so far':'Over 26.5'):(won?'Currently leading':f.sa<f.sb?'Currently trailing':'Tied')):'Scheduled',result:f.final?(won?'W':'L'):total&&f.live&&!won?'L':null,score:(f.live||f.final)?score:'Not started',detail:f.detail||''}}
@@ -78,17 +102,18 @@ function render(){renderMoneyline();let wins=0,losses=0,pushes=0,points=0,done=0
 async function refresh(){
 const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated'),midweekLabel=document.getElementById('midweek-updated');
 label.textContent=' Checking ESPN…';currentLabel.textContent=' Checking ESPN…';midweekLabel.textContent=' Checking ESPN…';
-const dates=[...new Set(['20261015','20261017',...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date)])];
+const dates=[...new Set(['20261015','20261017',...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
 const results=await Promise.allSettled(dates.map(async date=>{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=500&t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return {date,data:await r.json()}}));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
 if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;midweekLabel.textContent=label.textContent;render();renderCurrent();return;}
-events=good.flatMap(x=>x.data.events||[]);
+events=good.flatMap(x=>(x.data.events||[]).map(e=>({...e,trackerDate:x.date})));
 const matches=picks.filter(p=>find(p)).length;
 const currentMatches=currentPicks.filter(p=>find([p.team,p.opponent,p.spread])).length;
 const midweekMatches=midweekPicks.filter(p=>find([p.team,p.opponent,p.spread])).length;
+const moneylineMatches=moneylinePicks.filter(p=>find([p.team,p.opponent,0],p.date)).length;
 const failed=results.length-good.length,stamp=new Date().toLocaleTimeString();
 label.textContent=' Updated '+stamp+' · '+matches+'/6 previous ATS games matched'+(failed?' · '+failed+' date feeds unavailable':'');
-currentLabel.textContent=' Updated '+stamp+' · '+currentMatches+'/'+currentPicks.length+' current games matched'+(failed?' · '+failed+' date feeds unavailable':'');
+currentLabel.textContent=' Updated '+stamp+' · '+currentMatches+'/'+currentPicks.length+' current ATS games matched · '+moneylineMatches+'/'+moneylinePicks.length+' moneyline games matched'+(failed?' · '+failed+' date feeds unavailable':'');
 midweekLabel.textContent=' Updated '+stamp+' · '+midweekMatches+'/'+midweekPicks.length+' archived midweek games matched';
 render();renderCurrent();
 }
