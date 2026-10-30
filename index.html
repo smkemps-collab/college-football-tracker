@@ -17,6 +17,10 @@
 <p class="note">LOCKED · Six confirmed ATS selections · SMU is the 2× Best Pick · Tracking only; not submitted to the contest.</p>
 <div class="stats"><div class="stat"><small>ATS record (W–L–P)</small><strong id="week9-record">0–0–0</strong></div><div class="stat"><small>Contest points</small><strong id="week9-points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="week9-completed">0 / 6</strong></div></div>
 <button id="refresh-week9" type="button">↻ Refresh scores</button><span id="week9-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="week9-picks"></div>
+<h2>October 30–31 · DraftKings tickets</h2>
+<p class="note">Eight readable selections recorded from three placed-bet screenshots. Grouped by ticket and excluded from Pick’Em contest points. Cropped details remain unknown. Golf results require manual confirmation.</p>
+<div class="grid" id="week9-dk-tickets"></div>
+
 </section>
 <section id="panel-current" role="tabpanel" aria-labelledby="tab-current">
 <h2>Saturday · October 24 Pick’Em Card</h2><p class="note">Six contest ATS selections · Cincinnati is the 2× Best Pick · updated contest lines</p><div class="stats"><div class="stat"><small>Current ATS record (W–L–P)</small><strong id="current-record">0–0–0</strong></div><div class="stat"><small>Contest points</small><strong id="current-points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="current-completed">0 / 6</strong></div></div>
@@ -168,6 +172,113 @@ const week9Picks=[
 {team:'USC',opponent:'Ohio State',spread:6.5,date:'20261031',time:'7:30 PM',venue:'vs.'},
 {team:'North Carolina',opponent:'Miami',spread:14.5,date:'20261031',time:'7:30 PM',venue:'vs.'}
 ];
+
+const week9DraftKingsTickets=[
+  {
+    "title": "Auburn / Michigan total / Ben Griffin",
+    "notes": "Three visible legs from the placed ticket. Bet type, stake and payout are cropped out. A separate Round Robin (3) header appears below this ticket; its details are not visible.",
+    "legs": [
+      {
+        "label": "Auburn +11.5",
+        "odds": "−110",
+        "team": "Auburn",
+        "opponent": "Ole Miss",
+        "date": "20261031",
+        "market": "spread",
+        "line": 11.5
+      },
+      {
+        "label": "Michigan–Rutgers under 45.5",
+        "odds": "−115",
+        "team": "Michigan",
+        "opponent": "Rutgers",
+        "date": "20261031",
+        "market": "total",
+        "line": 45.5
+      },
+      {
+        "label": "Ben Griffin outright winner",
+        "odds": "+560",
+        "detail": "Mexico Open 2026 · live outright bet",
+        "market": "golf"
+      }
+    ]
+  },
+  {
+    "title": "Friday round robin · partial ticket",
+    "notes": "Four-leg, two-pick round robin shown by six pairings. Only legs 3 and 4 are readable. Screenshot marks leg 1 lost and leg 2 won, but their selections and lines are cropped out. FAU 41–North Texas 48 is visible without the associated pick. Stake and full-ticket payout are not shown.",
+    "legs": [
+      {
+        "label": "Baylor −1.5",
+        "odds": "+102",
+        "team": "Baylor",
+        "opponent": "UCF",
+        "date": "20261030",
+        "market": "spread",
+        "line": -1.5
+      },
+      {
+        "label": "Charlotte +8.5",
+        "odds": "−110",
+        "team": "Charlotte",
+        "opponent": "Tulane",
+        "date": "20261030",
+        "market": "spread",
+        "line": 8.5
+      }
+    ]
+  },
+  {
+    "title": "3-pick team-total parlay · +475",
+    "notes": "DraftKings · $4.00 wager · $23.03 potential payout, as displayed on the ticket. All three legs must win. Screenshot status: Open.",
+    "legs": [
+      {
+        "label": "USC team total over 21.5",
+        "odds": "−115",
+        "team": "USC",
+        "opponent": "Ohio State",
+        "date": "20261031",
+        "market": "team-over",
+        "line": 21.5
+      },
+      {
+        "label": "Rutgers team total under 14.5",
+        "odds": "−135",
+        "team": "Rutgers",
+        "opponent": "Michigan",
+        "date": "20261031",
+        "market": "team-under",
+        "line": 14.5
+      },
+      {
+        "label": "Oregon team total under 26.5",
+        "odds": "−130",
+        "team": "Oregon",
+        "opponent": "Northwestern",
+        "date": "20261031",
+        "market": "team-under",
+        "line": 26.5
+      }
+    ]
+  }
+];
+function renderWeek9DraftKings(){
+document.getElementById('week9-dk-tickets').innerHTML=week9DraftKingsTickets.map(ticket=>'<article class="card"><h3>'+ticket.title+'</h3>'+ticket.legs.map(p=>{
+let status='Open · awaiting result',cls='',score='';
+if(p.market==='golf')status='Awaiting golf result';
+else{
+const f=find([p.team,p.opponent,0],p.date);
+if(f&&(f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){
+const margin=p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?p.line-f.sa-f.sb:p.market==='team-over'?f.sa-p.line:p.line-f.sa;
+score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;
+if(f.final){status=margin>0?'Won':margin<0?'Lost':'Push';cls=margin>0?'W':margin<0?'L':'P';}
+else status='Live · '+(f.detail||'In progress');
+}
+}
+return '<div><div class="pick">'+p.label+' <span class="note">'+p.odds+'</span></div><p class="note">'+(p.detail||p.team+' vs. '+p.opponent+' · '+readableDate(p.date))+'</p><span class="status '+cls+'">'+status+'</span>'+(score?'<p>'+score+'</p>':'')+'</div><hr>';
+}).join('')+'<p class="note">'+ticket.notes+'</p></article>').join('');
+}
+
 const currentPicks=[
 {team:'Michigan',opponent:'Indiana',spread:7.5,date:'20261024',time:'12:00 PM',venue:'vs.',tv:'FOX'},
 {team:'Cincinnati',opponent:'Texas Tech',spread:10.5,date:'20261024',time:'12:00 PM',venue:'vs.',tv:'FS1',best:true},
@@ -225,7 +336,7 @@ return '<div class="card"><div class="pick">'+pick.team+' moneyline</div><p>'+pi
 document.getElementById('new-ml-record').textContent=w+'–'+l+'–'+p;
 document.getElementById('new-ml-completed').textContent=done+' / '+moneylinePicks.length;
 }
-function renderWeek9(){renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
+function renderWeek9(){renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
 function renderCurrent(){renderNewMoneylines();renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
 function find(p,date,league='college-football'){for(const e of events){if((e.trackerLeague||'college-football')!==league)continue;if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
@@ -253,7 +364,7 @@ label.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' · '
 async function refresh(){
 const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated'),midweekLabel=document.getElementById('midweek-updated');
 label.textContent=' Checking ESPN…';currentLabel.textContent=' Checking ESPN…';midweekLabel.textContent=' Checking ESPN…';
-const dates=[...new Set(['20261015','20261017',...week9Picks.map(p=>p.date),...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
+const dates=[...new Set(['20261015','20261017',...week9DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...week9Picks.map(p=>p.date),...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
 const results=await Promise.allSettled(dates.map(async date=>{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=500&t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return {date,data:await r.json()}}));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
 if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;midweekLabel.textContent=label.textContent;document.getElementById('week9-updated').textContent=label.textContent;renderWeek9();render();renderCurrent();return;}
