@@ -18,7 +18,7 @@
 <div class="stats"><div class="stat"><small>ATS record (W–L–P)</small><strong id="week9-record">0–0–0</strong></div><div class="stat"><small>Contest points</small><strong id="week9-points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="week9-completed">0 / 6</strong></div></div>
 <button id="refresh-week9" type="button">↻ Refresh scores</button><span id="week9-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="week9-picks"></div>
 <h2>October 30–31 · DraftKings tickets</h2>
-<p class="note">Eight readable selections recorded from three placed-bet screenshots. Grouped by ticket and excluded from Pick’Em contest points. Cropped details remain unknown. Golf results require manual confirmation.</p>
+<p class="note">Twelve readable selections recorded from four placed-bet screenshots. Grouped by ticket and excluded from Pick’Em contest points. Cropped details remain unknown. Golf results require manual confirmation.</p>
 <div class="grid" id="week9-dk-tickets"></div>
 
 </section>
@@ -260,6 +260,48 @@ const week9DraftKingsTickets=[
         "line": 26.5
       }
     ]
+  },
+  {
+    "title": "Saturday moneyline ticket · Coastal / UConn / WSU / K-State",
+    "notes": "DraftKings · $3.60 wager · $17.95 potential payout, as displayed. Four visible moneyline selections from the placed-bet screenshot. Bet type/header is cropped out and remains unspecified. Screenshot status: Open. Game date recorded as October 31, 2026 from the Saturday ticket and upload date.",
+    "legs": [
+      {
+        "label": "Coastal Carolina moneyline",
+        "odds": "+154",
+        "team": "Coastal Carolina",
+        "opponent": "Georgia State",
+        "date": "20261031",
+        "market": "moneyline",
+        "detail": "Coastal Carolina vs. Georgia State · Oct 31 · 2:00 PM ET"
+      },
+      {
+        "label": "UConn moneyline",
+        "odds": "−110",
+        "team": "UConn",
+        "opponent": "Air Force",
+        "date": "20261031",
+        "market": "moneyline",
+        "detail": "UConn vs. Air Force · Oct 31 · 3:00 PM ET"
+      },
+      {
+        "label": "Washington State moneyline",
+        "odds": "+120",
+        "team": "Washington State",
+        "opponent": "San Diego State",
+        "date": "20261031",
+        "market": "moneyline",
+        "detail": "Washington State vs. San Diego State · Oct 31 · 7:00 PM ET"
+      },
+      {
+        "label": "Kansas State moneyline",
+        "odds": "+130",
+        "team": "Kansas State",
+        "opponent": "Colorado",
+        "date": "20261031",
+        "market": "moneyline",
+        "detail": "Kansas State vs. Colorado · Oct 31 · 2:00 PM ET"
+      }
+    ]
   }
 ];
 function renderWeek9DraftKings(){
@@ -269,7 +311,7 @@ if(p.market==='golf')status='Awaiting golf result';
 else{
 const f=find([p.team,p.opponent,0],p.date);
 if(f&&(f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){
-const margin=p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?p.line-f.sa-f.sb:p.market==='team-over'?f.sa-p.line:p.line-f.sa;
+const margin=p.market==='moneyline'?f.sa-f.sb:p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?p.line-f.sa-f.sb:p.market==='team-over'?f.sa-p.line:p.line-f.sa;
 score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;
 if(f.final){status=margin>0?'Won':margin<0?'Lost':'Push';cls=margin>0?'W':margin<0?'L':'P';}
 else status='Live · '+(f.detail||'In progress');
