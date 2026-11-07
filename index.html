@@ -8,7 +8,7 @@
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
 <button type="button" class="tab" id="tab-nov7dk" role="tab" aria-selected="false" aria-controls="panel-nov7dk" tabindex="-1">Nov 7 · DraftKings</button>
 <button type="button" class="tab" id="tab-bear" role="tab" aria-selected="false" aria-controls="panel-bear" tabindex="-1">Bear Picks · Nov 6–7</button>
-<button type="button" class="tab" id="tab-week10" role="tab" aria-selected="false" aria-controls="panel-week10" tabindex="-1">Week 10 · Nov 7</button>
+<button type="button" class="tab" id="tab-week10" role="tab" aria-selected="false" aria-controls="panel-week10" tabindex="-1">Lloyd Martin · Nov 7</button>
 <button type="button" class="tab" id="tab-nflnov5" role="tab" aria-selected="false" aria-controls="panel-nflnov5" tabindex="-1">NFL Smoker · Nov 5–9</button>
 <button type="button" class="tab" id="tab-nov3" role="tab" aria-selected="false" aria-controls="panel-nov3" tabindex="-1">Nov 3–4 · DraftKings</button>
 <button type="button" class="tab" id="tab-week9" role="tab" aria-selected="false" aria-controls="panel-week9" tabindex="-1">Week 9 · Oct 31</button>
@@ -29,8 +29,8 @@
 <button id="refresh-bear" type="button">↻ Refresh scores</button><span id="bear-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="bear-picks"></div>
 </section>
 <section id="panel-week10" role="tabpanel" aria-labelledby="tab-week10" hidden>
-<h2>Saturday · November 7 Pick’Em Card</h2>
-<p class="note">Six confirmed ATS selections at locked contest spreads · Tennessee is the 2× Best Pick · All times Eastern. Tracking only; not submitted to the contest.</p>
+<h2>Lloyd Martin · November 7 Pick’Em Card</h2>
+<p class="note">Six confirmed ATS selections at locked contest spreads · Missouri is the 2× Best Pick · All times Eastern. Tracking only; not submitted to the contest.</p>
 <div class="stats"><div class="stat"><small>ATS record (W–L–P)</small><strong id="week10-record">0–0–0</strong></div><div class="stat"><small>Contest points</small><strong id="week10-points">0 / 7</strong></div><div class="stat"><small>Games completed</small><strong id="week10-completed">0 / 6</strong></div></div>
 <button id="refresh-week10" type="button">↻ Refresh scores</button><span id="week10-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="week10-picks"></div>
 </section>
@@ -78,7 +78,7 @@
 <div class="stats"><div class="stat"><small>NFL ATS record (W–L–P)</small><strong id="nflnov5-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="nflnov5-completed">0 / 15</strong></div></div>
 <button type="button" id="refresh-nflnov5">↻ Refresh NFL scores</button><span id="nflnov5-updated" class="note" aria-live="polite">Preparing NFL scoreboard…</span><div class="grid" id="nflnov5-picks"></div>
 </section>
-<footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Tennessee on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
+<footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
 function selectTab(id){for(const key of ['nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
 for(const key of ['nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
@@ -487,16 +487,16 @@ const week10Picks=[
     "date": "20261107",
     "time": "12:00 PM",
     "venue": "vs.",
-    "tv": "ESPN"
+    "tv": "ESPN",
+    "best": true
   },
   {
-    "team": "LSU",
-    "opponent": "Alabama",
-    "spread": -5.5,
+    "team": "Iowa",
+    "opponent": "Northwestern",
+    "spread": 2.5,
     "date": "20261107",
-    "time": "3:30 PM",
-    "venue": "vs.",
-    "tv": "ABC"
+    "time": "TBA",
+    "venue": "at"
   },
   {
     "team": "Tennessee",
@@ -505,8 +505,7 @@ const week10Picks=[
     "date": "20261107",
     "time": "6:15 PM",
     "venue": "vs.",
-    "tv": "ESPN",
-    "best": true
+    "tv": "ESPN"
   },
   {
     "team": "Ole Miss",
@@ -838,5 +837,5 @@ document.getElementById('refresh-week9').addEventListener('click',refresh);
 document.getElementById('refresh-midweek').addEventListener('click',refresh);
 document.getElementById('refresh-nfl').addEventListener('click',refreshNFL);
 document.getElementById('refresh-nflnov5').addEventListener('click',refreshNFL);
-renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('nov7dk');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
+renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('week10');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
 </script></body></html>
