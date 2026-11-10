@@ -6,6 +6,7 @@
 <body><h1>Lloyd Martin Pick 'Em Tracker</h1>
 <p>College football and NFL selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
+<button type="button" class="tab" id="tab-nov10dk" role="tab" aria-selected="false" aria-controls="panel-nov10dk" tabindex="-1">Nov 10–11 · DraftKings</button>
 <button type="button" class="tab" id="tab-nov7dk" role="tab" aria-selected="false" aria-controls="panel-nov7dk" tabindex="-1">Nov 7 · DraftKings</button>
 <button type="button" class="tab" id="tab-bear" role="tab" aria-selected="false" aria-controls="panel-bear" tabindex="-1">Bear Picks · Nov 6–7</button>
 <button type="button" class="tab" id="tab-week10" role="tab" aria-selected="false" aria-controls="panel-week10" tabindex="-1">Lloyd Martin · Nov 7</button>
@@ -17,6 +18,11 @@
 <button type="button" class="tab" id="tab-midweek" role="tab" aria-selected="false" aria-controls="panel-midweek" tabindex="-1">Oct 22–23 Archive</button>
 <button type="button" class="tab" id="tab-nfl" role="tab" aria-selected="false" aria-controls="panel-nfl" tabindex="-1">NFL Smoker · Oct 29–Nov 2</button>
 </nav>
+<section id="panel-nov10dk" role="tabpanel" aria-labelledby="tab-nov10dk" hidden>
+<h2>November 10–11 · DraftKings selections</h2>
+<p class="note">Four visible selections from the November 10 My Bets screenshot. Times Eastern. Wager type, stake, and potential payout are not visible; grouped as selections, not assumed to be a single parlay or round robin. Excluded from Pick’Em contest points.</p>
+<div class="grid" id="nov10-dk-tickets"></div>
+</section>
 <section id="panel-nov7dk" role="tabpanel" aria-labelledby="tab-nov7dk" hidden>
 <h2>November 7 · DraftKings tickets</h2>
 <p class="note">Three readable tickets plus one incomplete round-robin reference · All times Eastern · Separate from contest points. Moneyline leg results use the scoreboard; player props and first-half totals require manual confirmation. Cropped values remain unknown.</p>
@@ -80,8 +86,18 @@
 </section>
 <footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-function selectTab(id){for(const key of ['nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
-for(const key of ['nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+function selectTab(id){for(const key of ['nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
+for(const key of ['nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+const nov10DraftKingsTickets=[{
+  title:"Four visible DraftKings selections · November 10–11",
+  notes:"Source: DraftKings My Bets screenshot, Open filter · captured November 10, 2026. Bet structure, stake, payout and final results not shown. First two games Tuesday, November 10 at 7:00 PM ET; last two Wednesday, November 11 at 7:30 PM ET.",
+  legs:[
+    {label:"Kent State–Bowling Green under 43.5",odds:"−110",team:"Kent State",opponent:"Bowling Green",date:"20261110",market:"total",line:43.5,detail:"Kent State at Bowling Green · Nov 10 · 7:00 PM ET"},
+    {label:"Akron +15.5",odds:"−108",team:"Akron",opponent:"Western Michigan",date:"20261110",market:"spread",line:15.5,detail:"Western Michigan at Akron · Nov 10 · 7:00 PM ET"},
+    {label:"Sacramento State +18.5",odds:"−115",team:"Sacramento State",opponent:"Central Michigan",date:"20261111",market:"spread",line:18.5,detail:"Sacramento State at Central Michigan · Nov 11 · 7:30 PM ET"},
+    {label:"UMass +14.5",odds:"−112",team:"UMass",opponent:"Toledo",date:"20261111",market:"spread",line:14.5,detail:"UMass at Toledo · Nov 11 · 7:30 PM ET"}
+  ]
+}];
 const nov7DraftKingsTickets=[
   {
     "title": "Tommy Carr · 3-pick same-game parlay · +252",
@@ -782,7 +798,7 @@ document.getElementById('new-ml-completed').textContent=done+' / '+moneylinePick
 }
 function renderBear(){renderPickCollection(bearPicks,'bear-picks','bear-record','bear-completed',null);}
 function renderWeek10(){renderPickCollection(week10Picks,'week10-picks','week10-record','week10-completed','week10-points');}
-function renderWeek9(){renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
+function renderWeek9(){renderWeek9DraftKings(nov10DraftKingsTickets,'nov10-dk-tickets');renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
 function renderCurrent(){renderNewMoneylines();renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
 function find(p,date,league='college-football'){for(const e of events){if((e.trackerLeague||'college-football')!==league)continue;if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
@@ -811,7 +827,7 @@ newLabel.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' �
 async function refresh(){
 const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated'),midweekLabel=document.getElementById('midweek-updated');
 label.textContent=' Checking ESPN…';currentLabel.textContent=' Checking ESPN…';midweekLabel.textContent=' Checking ESPN…';
-const dates=[...new Set(['20261015','20261017',...nov7DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov3DraftKingsTickets.flatMap(t=>t.legs).map(p=>p.date),...week9DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...bearPicks.map(p=>p.date),...week10Picks.map(p=>p.date),...week9Picks.map(p=>p.date),...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
+const dates=[...new Set(['20261015','20261017',...nov10DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov7DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov3DraftKingsTickets.flatMap(t=>t.legs).map(p=>p.date),...week9DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...bearPicks.map(p=>p.date),...week10Picks.map(p=>p.date),...week9Picks.map(p=>p.date),...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
 const results=await Promise.allSettled(dates.map(async date=>{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=500&t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return {date,data:await r.json()}}));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
 if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;midweekLabel.textContent=label.textContent;document.getElementById('bear-updated').textContent=label.textContent;renderBear();document.getElementById('week10-updated').textContent=label.textContent;renderWeek10();document.getElementById('week9-updated').textContent=label.textContent;renderWeek9();render();renderCurrent();return;}
@@ -837,5 +853,5 @@ document.getElementById('refresh-week9').addEventListener('click',refresh);
 document.getElementById('refresh-midweek').addEventListener('click',refresh);
 document.getElementById('refresh-nfl').addEventListener('click',refreshNFL);
 document.getElementById('refresh-nflnov5').addEventListener('click',refreshNFL);
-renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('week10');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
+renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('nov10dk');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
 </script></body></html>
