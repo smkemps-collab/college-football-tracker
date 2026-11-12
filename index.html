@@ -6,6 +6,7 @@
 <body><h1>Lloyd Martin Pick 'Em Tracker</h1>
 <p>College football and NFL selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
+<button type="button" class="tab" id="tab-nflnov12" role="tab" aria-selected="false" aria-controls="panel-nflnov12" tabindex="-1">NFL Smoker · Nov 12–16</button>
 <button type="button" class="tab" id="tab-nov10dk" role="tab" aria-selected="false" aria-controls="panel-nov10dk" tabindex="-1">Nov 10–11 · DraftKings</button>
 <button type="button" class="tab" id="tab-nov7dk" role="tab" aria-selected="false" aria-controls="panel-nov7dk" tabindex="-1">Nov 7 · DraftKings</button>
 <button type="button" class="tab" id="tab-bear" role="tab" aria-selected="false" aria-controls="panel-bear" tabindex="-1">Bear Picks · Nov 6–7</button>
@@ -18,6 +19,12 @@
 <button type="button" class="tab" id="tab-midweek" role="tab" aria-selected="false" aria-controls="panel-midweek" tabindex="-1">Oct 22–23 Archive</button>
 <button type="button" class="tab" id="tab-nfl" role="tab" aria-selected="false" aria-controls="panel-nfl" tabindex="-1">NFL Smoker · Oct 29–Nov 2</button>
 </nav>
+<section id="panel-nflnov12" role="tabpanel" aria-labelledby="tab-nflnov12" hidden>
+<h2>NFL Smoker Pick ’Em · November 12–16</h2>
+<p class="note">2026 · NFL Week 10 · 14 preliminary ATS selections based on published reference spreads. Not confirmed against locked PoolHost lines; not submitted to PoolHost.</p>
+<div class="stats"><div class="stat"><small>NFL ATS record (W–L–P)</small><strong id="nflnov12-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="nflnov12-completed">0 / 14</strong></div></div>
+<button type="button" id="refresh-nflnov12">↻ Refresh NFL scores</button><span id="nflnov12-updated" class="note" aria-live="polite">Preparing NFL scoreboard…</span><div class="grid" id="nflnov12-picks"></div>
+</section>
 <section id="panel-nov10dk" role="tabpanel" aria-labelledby="tab-nov10dk" hidden>
 <h2>November 10–11 · DraftKings selections</h2>
 <p class="note">Four visible selections from the November 10 My Bets screenshot. Times Eastern. Wager type, stake, and potential payout are not visible; grouped as selections, not assumed to be a single parlay or round robin. Excluded from Pick’Em contest points.</p>
@@ -88,8 +95,8 @@
 </section>
 <footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-function selectTab(id){for(const key of ['nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
-for(const key of ['nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+function selectTab(id){for(const key of ['nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
+for(const key of ['nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
 const nov10DraftKingsTickets=[{
   title:"Four visible DraftKings selections · November 10–11",
   notes:"Source: DraftKings My Bets screenshot, Open filter · captured November 10, 2026. Bet structure, stake, payout and final results not shown. First two games Tuesday, November 10 at 7:00 PM ET; last two Wednesday, November 11 at 7:30 PM ET.",
@@ -190,6 +197,120 @@ const nov7DraftKingsTickets=[
         "detail": "Full ticket needed to identify all selections and confirm settlement."
       }
     ]
+  }
+];
+const nflNov12Picks=[
+  {
+    "team": "New York Giants",
+    "opponent": "Washington Commanders",
+    "spread": -2.5,
+    "date": "20261112",
+    "time": "8:15 PM",
+    "venue": "vs."
+  },
+  {
+    "team": "Detroit Lions",
+    "opponent": "New England Patriots",
+    "spread": -2.5,
+    "date": "20261115",
+    "time": "9:30 AM",
+    "venue": "vs."
+  },
+  {
+    "team": "Atlanta Falcons",
+    "opponent": "Kansas City Chiefs",
+    "spread": 3.5,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "vs."
+  },
+  {
+    "team": "Buffalo Bills",
+    "opponent": "New York Jets",
+    "spread": -7.5,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "at"
+  },
+  {
+    "team": "Miami Dolphins",
+    "opponent": "Indianapolis Colts",
+    "spread": 3.5,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "at"
+  },
+  {
+    "team": "Green Bay Packers",
+    "opponent": "Minnesota Vikings",
+    "spread": -3,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "vs."
+  },
+  {
+    "team": "Carolina Panthers",
+    "opponent": "New Orleans Saints",
+    "spread": 2.5,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "at"
+  },
+  {
+    "team": "Tennessee Titans",
+    "opponent": "Jacksonville Jaguars",
+    "spread": 10.5,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "vs."
+  },
+  {
+    "team": "Houston Texans",
+    "opponent": "Cleveland Browns",
+    "spread": -4.5,
+    "date": "20261115",
+    "time": "1:00 PM",
+    "venue": "at"
+  },
+  {
+    "team": "Seattle Seahawks",
+    "opponent": "Las Vegas Raiders",
+    "spread": -6.5,
+    "date": "20261115",
+    "time": "4:05 PM",
+    "venue": "at"
+  },
+  {
+    "team": "Arizona Cardinals",
+    "opponent": "Los Angeles Rams",
+    "spread": 9.5,
+    "date": "20261115",
+    "time": "4:05 PM",
+    "venue": "vs."
+  },
+  {
+    "team": "Dallas Cowboys",
+    "opponent": "San Francisco 49ers",
+    "spread": 4.5,
+    "date": "20261115",
+    "time": "4:25 PM",
+    "venue": "vs."
+  },
+  {
+    "team": "Pittsburgh Steelers",
+    "opponent": "Cincinnati Bengals",
+    "spread": 3.5,
+    "date": "20261115",
+    "time": "8:20 PM",
+    "venue": "at"
+  },
+  {
+    "team": "Baltimore Ravens",
+    "opponent": "Los Angeles Chargers",
+    "spread": -4.5,
+    "date": "20261116",
+    "time": "8:15 PM",
+    "venue": "vs."
   }
 ];
 const nflNov5Picks=[
@@ -772,7 +893,7 @@ const readableDate=d=>{const dt=new Date(d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.sli
 function renderPickCollection(items,gridId,recordId,completedId,pointsId){
 let w=0,l=0,push=0,done=0,points=0;
 document.getElementById(gridId).innerHTML=items.map(p=>{
-const f=find([p.team,p.opponent,p.spread],p.date,(items===nflPicks||items===nflNov5Picks)?'nfl':'college-football'),signed=(p.spread>0?'+':'')+p.spread;
+const f=find([p.team,p.opponent,p.spread],p.date,(items===nflPicks||items===nflNov5Picks||items===nflNov12Picks)?'nfl':'college-football'),signed=(p.spread>0?'+':'')+p.spread;
 let status='Scheduled',cls='',score='Not started',details=readableDate(p.date)+' · '+p.time+' ET';
 if(f){if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){w++;points+=p.best?2:1;status='Covered';cls='W'}else if(f.margin<0){l++;status='Missed';cls='L'}else{push++;points+=p.best?1:.5;status='Push';cls='P'}}else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';
 if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;details='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+(f.detail||'')}else if(f.detail)details=f.detail;}
@@ -812,10 +933,10 @@ const status=result==='W'?'Won':result==='L'?'Lost':'Open';
 document.getElementById('moneyline').innerHTML='<div class="card"><div class="pick">2-leg parlay · +380</div><p>DraftKings · Thursday, Oct 15 · 7:30 PM ET</p><span class="status '+result+'">'+status+'</span><p>$4.00 wager · $19.20 potential payout · $15.20 potential profit</p><div class="pick">UAB moneyline +180</div><p>vs. East Carolina · '+x.label+'</p><div class="score">'+x.score+'</div><div class="note">'+x.detail+'</div><hr><div class="pick">Georgia Southern under 26.5 −140</div><p>Team total points vs. Old Dominion · '+y.label+'</p><div class="score">'+y.score+'</div><div class="note">'+y.detail+'</div><p class="note">Both legs must win. Georgia Southern must score 26 or fewer. Excluded from ATS contest points. Recorded from your placed bet screenshot.</p></div>';
 }
 function render(){renderMoneyline();let wins=0,losses=0,pushes=0,points=0,done=0,cover=0,live=0;document.getElementById('games').innerHTML=picks.map(p=>{const f=find(p),signed=p[2]>0?'+'+p[2]:p[2];let status='Scheduled',cls='',score='Not started',extra='Kickoff '+p[3]+' ET';if(f){if(f.final){done++;if(f.margin>0){wins++;points+=p[4]?2:1;status='Covered';cls='W'}else if(f.margin<0){losses++;status='Missed';cls='L'}else{pushes++;points+=p[4]?1:0.5;status='Push';cls='P'}}else if(f.live){live++;status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';if(f.margin>0)cover++}if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p[0]+' '+f.sa+' · '+p[1]+' '+f.sb;extra='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+f.detail}else if(f.detail)extra=f.detail}return '<div class="card"><div class="pick">'+p[0]+' '+signed+(p[4]?' <span class="best">★ 2× BEST</span>':'')+'</div><p>vs. '+p[1]+' · '+p[3]+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><span class="note">'+extra+'</span></div>'}).join('');document.getElementById('record').textContent=wins+'–'+losses+'–'+pushes;document.getElementById('points').textContent=points+' / 7';document.getElementById('completed').textContent=done+' / 6';document.getElementById('covering').textContent=live?cover+' / '+live+' live':'—'}
-function renderNFL(){renderPickCollection(nflPicks,'nfl-picks','nfl-record','nfl-completed',null);renderPickCollection(nflNov5Picks,'nflnov5-picks','nflnov5-record','nflnov5-completed',null);}
+function renderNFL(){renderPickCollection(nflNov12Picks,'nflnov12-picks','nflnov12-record','nflnov12-completed',null);renderPickCollection(nflPicks,'nfl-picks','nfl-record','nfl-completed',null);renderPickCollection(nflNov5Picks,'nflnov5-picks','nflnov5-record','nflnov5-completed',null);}
 async function refreshNFL(){
-const label=document.getElementById('nfl-updated'),newLabel=document.getElementById('nflnov5-updated');label.textContent=' Checking ESPN NFL…';newLabel.textContent=label.textContent;
-const results=await Promise.allSettled([...new Set([...nflPicks,...nflNov5Picks].map(p=>p.date))].map(async date=>{
+const label=document.getElementById('nfl-updated'),newLabel=document.getElementById('nflnov5-updated'),latestLabel=document.getElementById('nflnov12-updated');label.textContent=' Checking ESPN NFL…';newLabel.textContent=label.textContent;latestLabel.textContent=label.textContent;
+const results=await Promise.allSettled([...new Set([...nflPicks,...nflNov5Picks,...nflNov12Picks].map(p=>p.date))].map(async date=>{
 const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates='+date+'&limit=100&t='+Date.now(),{cache:'no-store'});
 if(!r.ok)throw Error('HTTP '+r.status);
 return {date,data:await r.json()};
@@ -825,6 +946,7 @@ if(good.length){const dates=new Set(good.map(x=>x.date));events=events.filter(e=
 renderNFL();
 label.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' · '+nflPicks.filter(p=>find([p.team,p.opponent,p.spread],p.date,'nfl')).length+'/14 NFL games matched'+(good.length<results.length?' · Some date feeds unavailable':''):' ESPN NFL feed unavailable. Retry later.';
 newLabel.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' · '+nflNov5Picks.filter(p=>find([p.team,p.opponent,p.spread],p.date,'nfl')).length+'/15 NFL games matched'+(good.length<results.length?' · Some date feeds unavailable':''):' ESPN NFL feed unavailable. Retry later.';
+latestLabel.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' · '+nflNov12Picks.filter(p=>find([p.team,p.opponent,p.spread],p.date,'nfl')).length+'/14 NFL games matched'+(good.length<results.length?' · Some date feeds unavailable':''):' ESPN NFL feed unavailable. Retry later.';
 }
 async function refresh(){
 const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated'),midweekLabel=document.getElementById('midweek-updated');
@@ -855,5 +977,6 @@ document.getElementById('refresh-week9').addEventListener('click',refresh);
 document.getElementById('refresh-midweek').addEventListener('click',refresh);
 document.getElementById('refresh-nfl').addEventListener('click',refreshNFL);
 document.getElementById('refresh-nflnov5').addEventListener('click',refreshNFL);
-renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('nov10dk');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
+document.getElementById('refresh-nflnov12').addEventListener('click',refreshNFL);
+renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('nflnov12');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
 </script></body></html>
