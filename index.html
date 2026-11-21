@@ -7,6 +7,7 @@
 <p>College football and NFL selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
 <button type="button" class="tab active" id="tab-week12" role="tab" aria-selected="true" aria-controls="panel-week12" tabindex="0">Lloyd Martin · Nov 20–21</button>
+<button type="button" class="tab" id="tab-nov21fd" role="tab" aria-selected="false" aria-controls="panel-nov21fd" tabindex="-1">Nov 21 · FanDuel</button>
 <button type="button" class="tab" id="tab-nov14dk" role="tab" aria-selected="false" aria-controls="panel-nov14dk" tabindex="-1">Nov 14 · DraftKings</button>
 <button type="button" class="tab" id="tab-nov14" role="tab" aria-selected="false" aria-controls="panel-nov14" tabindex="-1">Lloyd Martin · Nov 13–14</button>
 <button type="button" class="tab" id="tab-nflnov19" role="tab" aria-selected="false" aria-controls="panel-nflnov19" tabindex="-1">NFL Smoker · Nov 19–23</button>
@@ -30,6 +31,7 @@
 <button id="refresh-week12" type="button">↻ Refresh scores</button><span id="week12-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="week12-picks"></div>
 <p class="note">Alternate (not an entry): Texas A&amp;M +7.5 at Oklahoma.</p>
 </section>
+<section id="panel-nov21fd" hidden role="tabpanel" aria-labelledby="tab-nov21fd"><h2>November 21 · FanDuel tickets</h2><p class="note">Three tickets placed November 20, 2026 at The Greenbrier · $50.00 total stake · All game times Eastern.</p><div class="grid" id="nov21-fd-tickets"></div></section>
 <section id="panel-nov14dk" hidden role="tabpanel" aria-labelledby="tab-nov14dk"><h2>November 14 · DraftKings tickets</h2><p class="note">Eight visible selections from two screenshots, grouped by ticket. Cropped details remain unknown. Separate from Pick’Em points. All times Eastern.</p><div class="grid" id="nov14-dk-tickets"></div></section>
 <section id="panel-nov14" role="tabpanel" aria-labelledby="tab-nov14" hidden>
 <h2>Lloyd Martin · November 13–14 Pick’Em Card</h2>
@@ -121,6 +123,106 @@
 <script>
 function selectTab(id){for(const key of ['week12','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
 for(const key of ['week12','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+const nov21FanDuelTickets=[
+  {
+    "title": "Two-pick round robin · 6 × $5.00",
+    "notes": "$30.00 total stake · $78.00 potential profit · $108.00 max payout. Each of the six possible pairs is a separate $5.00 wager.",
+    "legs": [
+      {
+        "label": "Syracuse −2.5",
+        "odds": "−124",
+        "team": "Syracuse",
+        "opponent": "Boston College",
+        "market": "spread",
+        "line": -2.5,
+        "date": "20261121",
+        "detail": "Syracuse at Boston College · Nov 21 · 12:00 PM ET"
+      },
+      {
+        "label": "Northwestern −2.5",
+        "odds": "−110",
+        "team": "Northwestern",
+        "opponent": "Minnesota",
+        "market": "spread",
+        "line": -2.5,
+        "date": "20261121",
+        "detail": "Northwestern at Minnesota · Nov 21 · 12:00 PM ET"
+      },
+      {
+        "label": "Missouri −4.5",
+        "odds": "−110",
+        "team": "Missouri",
+        "opponent": "Kentucky",
+        "market": "spread",
+        "line": -4.5,
+        "date": "20261121",
+        "detail": "Kentucky at Missouri · Nov 21 · 7:30 PM ET"
+      },
+      {
+        "label": "Utah −7.5",
+        "odds": "−104",
+        "team": "Utah",
+        "opponent": "TCU",
+        "market": "spread",
+        "line": -7.5,
+        "date": "20261121",
+        "detail": "Utah at TCU · Nov 21 · 9:00 PM ET"
+      }
+    ]
+  },
+  {
+    "title": "UCLA at Michigan · Straight bet",
+    "notes": "$15.00 stake · $12.50 potential profit · $27.50 max payout.",
+    "legs": [
+      {
+        "label": "Under 37.5",
+        "odds": "−120",
+        "team": "Michigan",
+        "opponent": "UCLA",
+        "market": "total",
+        "line": 37.5,
+        "date": "20261121",
+        "detail": "UCLA at Michigan · Nov 21 · 3:30 PM ET"
+      }
+    ]
+  },
+  {
+    "title": "Three-leg moneyline parlay · +2374",
+    "notes": "$5.00 stake · $118.75 potential profit · $123.75 max payout as printed.",
+    "legs": [
+      {
+        "label": "TCU moneyline",
+        "odds": "+225",
+        "team": "TCU",
+        "opponent": "Utah",
+        "market": "moneyline",
+        "line": null,
+        "date": "20261121",
+        "detail": "Utah at TCU · Nov 21 · 9:00 PM ET"
+      },
+      {
+        "label": "Kansas moneyline",
+        "odds": "+184",
+        "team": "Kansas",
+        "opponent": "BYU",
+        "market": "moneyline",
+        "line": null,
+        "date": "20261121",
+        "detail": "BYU at Kansas · Nov 21 · 12:00 PM ET"
+      },
+      {
+        "label": "Baylor moneyline",
+        "odds": "+168",
+        "team": "Baylor",
+        "opponent": "Texas Tech",
+        "market": "moneyline",
+        "line": null,
+        "date": "20261121",
+        "detail": "Texas Tech at Baylor · Nov 21 · 3:30 PM ET"
+      }
+    ]
+  }
+];
 const nov14DraftKingsTickets=[
   {
     "title": "Moneyline ticket · five visible selections",
@@ -1204,7 +1306,7 @@ function renderBear(){renderPickCollection(bearPicks,'bear-picks','bear-record',
 function renderWeek12(){renderPickCollection(week12Picks,'week12-picks','week12-record','week12-completed','week12-points');}
 function renderNov14(){renderPickCollection(nov14Picks,'nov14-picks','nov14-record','nov14-completed','nov14-points');}
 function renderWeek10(){renderPickCollection(week10Picks,'week10-picks','week10-record','week10-completed','week10-points');}
-function renderWeek9(){renderWeek9DraftKings(nov14DraftKingsTickets,'nov14-dk-tickets');renderWeek9DraftKings(nov10DraftKingsTickets,'nov10-dk-tickets');renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
+function renderWeek9(){renderWeek9DraftKings(nov21FanDuelTickets,'nov21-fd-tickets');renderWeek9DraftKings(nov14DraftKingsTickets,'nov14-dk-tickets');renderWeek9DraftKings(nov10DraftKingsTickets,'nov10-dk-tickets');renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
 function renderCurrent(){renderNewMoneylines();renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
 function find(p,date,league='college-football'){for(const e of events){if((e.trackerLeague||'college-football')!==league)continue;if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
@@ -1235,7 +1337,7 @@ week11Label.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+
 async function refresh(){
 const label=document.getElementById('updated'),currentLabel=document.getElementById('current-updated'),midweekLabel=document.getElementById('midweek-updated');
 label.textContent=' Checking ESPN…';currentLabel.textContent=' Checking ESPN…';midweekLabel.textContent=' Checking ESPN…';document.getElementById('nov14-updated').textContent=label.textContent;
-const dates=[...new Set(['20261015','20261017',...week12Picks.map(p=>p.date),...nov14Picks.map(p=>p.date),...nov14DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov10DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov7DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov3DraftKingsTickets.flatMap(t=>t.legs).map(p=>p.date),...week9DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...bearPicks.map(p=>p.date),...week10Picks.map(p=>p.date),...week9Picks.map(p=>p.date),...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
+const dates=[...new Set(['20261015','20261017',...week12Picks.map(p=>p.date),...nov21FanDuelTickets.flatMap(t=>t.legs).map(p=>p.date),...nov14Picks.map(p=>p.date),...nov14DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov10DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov7DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...nov3DraftKingsTickets.flatMap(t=>t.legs).map(p=>p.date),...week9DraftKingsTickets.flatMap(t=>t.legs).filter(p=>p.date).map(p=>p.date),...bearPicks.map(p=>p.date),...week10Picks.map(p=>p.date),...week9Picks.map(p=>p.date),...currentPicks.map(p=>p.date),...midweekPicks.map(p=>p.date),...moneylinePicks.map(p=>p.date)])];
 const results=await Promise.allSettled(dates.map(async date=>{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=500&t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return {date,data:await r.json()}}));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
 if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;midweekLabel.textContent=label.textContent;document.getElementById('week12-updated').textContent=label.textContent;renderWeek12();document.getElementById('nov14-updated').textContent=label.textContent;renderNov14();document.getElementById('bear-updated').textContent=label.textContent;renderBear();document.getElementById('week10-updated').textContent=label.textContent;renderWeek10();document.getElementById('week9-updated').textContent=label.textContent;renderWeek9();render();renderCurrent();return;}
