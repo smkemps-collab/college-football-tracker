@@ -7,6 +7,7 @@
 <p>College football and NFL selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
 <button type="button" class="tab active" id="tab-week12" role="tab" aria-selected="true" aria-controls="panel-week12" tabindex="0">Lloyd Martin · Nov 20–21</button>
+<button type="button" class="tab" id="tab-nov22fd" role="tab" aria-selected="false" aria-controls="panel-nov22fd" tabindex="-1">Nov 22 · FanDuel</button>
 <button type="button" class="tab" id="tab-nov21fd" role="tab" aria-selected="false" aria-controls="panel-nov21fd" tabindex="-1">Nov 21 · FanDuel</button>
 <button type="button" class="tab" id="tab-nov14dk" role="tab" aria-selected="false" aria-controls="panel-nov14dk" tabindex="-1">Nov 14 · DraftKings</button>
 <button type="button" class="tab" id="tab-nov14" role="tab" aria-selected="false" aria-controls="panel-nov14" tabindex="-1">Lloyd Martin · Nov 13–14</button>
@@ -31,6 +32,7 @@
 <button id="refresh-week12" type="button">↻ Refresh scores</button><span id="week12-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="week12-picks"></div>
 <p class="note">Alternate (not an entry): Texas A&amp;M +7.5 at Oklahoma.</p>
 </section>
+<section id="panel-nov22fd" hidden role="tabpanel" aria-labelledby="tab-nov22fd"><h2>November 22 · FanDuel tickets</h2><p class="note">Six tickets for November 22, 2026 · $52.50 total stake · $222.00 combined maximum payout · Times Eastern as printed.</p><div class="grid" id="nov22-fd-tickets"></div></section>
 <section id="panel-nov21fd" hidden role="tabpanel" aria-labelledby="tab-nov21fd"><h2>November 21 · FanDuel tickets</h2><p class="note">Eight tickets placed November 20–21, 2026 at The Greenbrier · $92.00 total stake · All game times Eastern.</p><div class="grid" id="nov21-fd-tickets"></div></section>
 <section id="panel-nov14dk" hidden role="tabpanel" aria-labelledby="tab-nov14dk"><h2>November 14 · DraftKings tickets</h2><p class="note">Eight visible selections from two screenshots, grouped by ticket. Cropped details remain unknown. Separate from Pick’Em points. All times Eastern.</p><div class="grid" id="nov14-dk-tickets"></div></section>
 <section id="panel-nov14" role="tabpanel" aria-labelledby="tab-nov14" hidden>
@@ -121,8 +123,156 @@
 </section>
 <footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Oregon on November 20; Arizona on November 14; Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-function selectTab(id){for(const key of ['week12','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
-for(const key of ['week12','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+function selectTab(id){for(const key of ['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
+for(const key of ['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+const nov22FanDuelTickets=[
+  {
+    "title": "Malik Nabers · Straight bet",
+    "notes": "Placed Nov 22 · $10.00 stake · $25.25 max payout as printed.",
+    "legs": [
+      {
+        "label": "Malik Nabers 80+ receiving yards",
+        "odds": "+152",
+        "team": "New York Giants",
+        "opponent": "Jacksonville Jaguars",
+        "market": "player",
+        "line": 80,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "Jacksonville Jaguars at New York Giants · Nov 22 · 4:26 PM ET (as printed)"
+      }
+    ]
+  },
+  {
+    "title": "Isaiah Likely · Anytime touchdown straight bet",
+    "notes": "Placed Nov 22 · $5.00 stake · $16.50 max payout as printed.",
+    "legs": [
+      {
+        "label": "Isaiah Likely anytime touchdown",
+        "odds": "+230",
+        "team": "New York Giants",
+        "opponent": "Jacksonville Jaguars",
+        "market": "player",
+        "line": null,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "Jacksonville Jaguars at New York Giants · Nov 22 · 4:26 PM ET (as printed)"
+      }
+    ]
+  },
+  {
+    "title": "Isaiah Likely · Receiving yards straight bet",
+    "notes": "Placed Nov 22 · $10.00 stake · $37.00 max payout as printed.",
+    "legs": [
+      {
+        "label": "Isaiah Likely 70+ receiving yards",
+        "odds": "+270",
+        "team": "New York Giants",
+        "opponent": "Jacksonville Jaguars",
+        "market": "player",
+        "line": 70,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "Jacksonville Jaguars at New York Giants · Nov 22 · 4:26 PM ET (as printed)"
+      }
+    ]
+  },
+  {
+    "title": "Men’s college basketball totals parlay · +597",
+    "notes": "Placed Nov 22 · $10.00 stake · $69.75 max payout as printed.",
+    "legs": [
+      {
+        "label": "Under 147.5",
+        "odds": "−105",
+        "team": "George Washington",
+        "opponent": "Western Kentucky",
+        "market": "total",
+        "line": 147.5,
+        "date": "20261122",
+        "league": "mens-college-basketball",
+        "detail": "Western Kentucky at George Washington · Nov 22 · 2:00 PM ET (as printed)"
+      },
+      {
+        "label": "Over 141.5",
+        "odds": "−115",
+        "team": "Richmond",
+        "opponent": "Liberty",
+        "market": "total",
+        "line": 141.5,
+        "date": "20261122",
+        "league": "mens-college-basketball",
+        "detail": "Liberty at Richmond · Nov 22 · 4:30 PM ET (as printed)"
+      },
+      {
+        "label": "Under 152.5",
+        "odds": "−110",
+        "team": "Rhode Island",
+        "opponent": "UAB",
+        "market": "total",
+        "line": 152.5,
+        "date": "20261122",
+        "league": "mens-college-basketball",
+        "detail": "UAB at Rhode Island · Nov 22 · 7:00 PM ET (as printed)"
+      }
+    ]
+  },
+  {
+    "title": "NFL moneyline parlay · +868",
+    "notes": "Placed Nov 22 · $5.00 stake · $48.50 max payout as printed.",
+    "legs": [
+      {
+        "label": "Los Angeles Chargers moneyline",
+        "odds": "−174",
+        "team": "Los Angeles Chargers",
+        "opponent": "New York Jets",
+        "market": "moneyline",
+        "line": null,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "New York Jets at Los Angeles Chargers · Nov 22 · 4:06 PM ET (as printed)"
+      },
+      {
+        "label": "Baltimore Ravens moneyline",
+        "odds": "+126",
+        "team": "Baltimore Ravens",
+        "opponent": "Carolina Panthers",
+        "market": "moneyline",
+        "line": null,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "Baltimore Ravens at Carolina Panthers · Nov 22 · 1:01 PM ET (as printed)"
+      },
+      {
+        "label": "Tampa Bay Buccaneers moneyline",
+        "odds": "+172",
+        "team": "Tampa Bay Buccaneers",
+        "opponent": "Detroit Lions",
+        "market": "moneyline",
+        "line": null,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "Tampa Bay Buccaneers at Detroit Lions · Nov 22 · 1:01 PM ET (as printed)"
+      }
+    ]
+  },
+  {
+    "title": "New York Giants · Spread straight bet",
+    "notes": "Placed Nov 20 · $12.50 stake · $25.00 max payout as printed.",
+    "legs": [
+      {
+        "label": "New York Giants +5.5",
+        "odds": "Even",
+        "team": "New York Giants",
+        "opponent": "Jacksonville Jaguars",
+        "market": "spread",
+        "line": 5.5,
+        "date": "20261122",
+        "league": "nfl",
+        "detail": "Jacksonville Jaguars at New York Giants · Nov 22 · 4:26 PM ET (as printed)"
+      }
+    ]
+  }
+];
 const nov21FanDuelTickets=[
   {
     "title": "Two-pick round robin · 6 × $5.00",
@@ -1350,10 +1500,10 @@ function renderWeek9DraftKings(tickets=week9DraftKingsTickets,gridId='week9-dk-t
 document.getElementById(gridId).innerHTML=tickets.map(ticket=>'<article class="card"><h3>'+ticket.title+'</h3>'+ticket.legs.map(p=>{
 let status='Open · awaiting result',cls='',score='';
 if(p.market==='golf')status='Awaiting golf result';
-else if(p.market==='player'||p.market==='half-total')status='Awaiting manual result confirmation';
+else if(p.market==='player'||p.market==='half-total'||p.league==='mens-college-basketball')status='Awaiting manual result confirmation';
 else if(p.market==='incomplete')status='Incomplete · settlement unverified';
 else{
-const f=find([p.team,p.opponent,0],p.date);
+const f=find([p.team,p.opponent,0],p.date,p.league);
 if(f&&(f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){
 const margin=p.market==='moneyline'?f.sa-f.sb:p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?p.line-f.sa-f.sb:p.market==='team-over'?f.sa-p.line:p.line-f.sa;
 score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;
@@ -1438,10 +1588,10 @@ const status=result==='W'?'Won':result==='L'?'Lost':'Open';
 document.getElementById('moneyline').innerHTML='<div class="card"><div class="pick">2-leg parlay · +380</div><p>DraftKings · Thursday, Oct 15 · 7:30 PM ET</p><span class="status '+result+'">'+status+'</span><p>$4.00 wager · $19.20 potential payout · $15.20 potential profit</p><div class="pick">UAB moneyline +180</div><p>vs. East Carolina · '+x.label+'</p><div class="score">'+x.score+'</div><div class="note">'+x.detail+'</div><hr><div class="pick">Georgia Southern under 26.5 −140</div><p>Team total points vs. Old Dominion · '+y.label+'</p><div class="score">'+y.score+'</div><div class="note">'+y.detail+'</div><p class="note">Both legs must win. Georgia Southern must score 26 or fewer. Excluded from ATS contest points. Recorded from your placed bet screenshot.</p></div>';
 }
 function render(){renderMoneyline();let wins=0,losses=0,pushes=0,points=0,done=0,cover=0,live=0;document.getElementById('games').innerHTML=picks.map(p=>{const f=find(p),signed=p[2]>0?'+'+p[2]:p[2];let status='Scheduled',cls='',score='Not started',extra='Kickoff '+p[3]+' ET';if(f){if(f.final){done++;if(f.margin>0){wins++;points+=p[4]?2:1;status='Covered';cls='W'}else if(f.margin<0){losses++;status='Missed';cls='L'}else{pushes++;points+=p[4]?1:0.5;status='Push';cls='P'}}else if(f.live){live++;status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';if(f.margin>0)cover++}if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p[0]+' '+f.sa+' · '+p[1]+' '+f.sb;extra='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+f.detail}else if(f.detail)extra=f.detail}return '<div class="card"><div class="pick">'+p[0]+' '+signed+(p[4]?' <span class="best">★ 2× BEST</span>':'')+'</div><p>vs. '+p[1]+' · '+p[3]+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><span class="note">'+extra+'</span></div>'}).join('');document.getElementById('record').textContent=wins+'–'+losses+'–'+pushes;document.getElementById('points').textContent=points+' / 7';document.getElementById('completed').textContent=done+' / 6';document.getElementById('covering').textContent=live?cover+' / '+live+' live':'—'}
-function renderNFL(){renderPickCollection(nflNov19Picks,'nflnov19-picks','nflnov19-record','nflnov19-completed',null);renderPickCollection(nflNov12Picks,'nflnov12-picks','nflnov12-record','nflnov12-completed',null);renderPickCollection(nflPicks,'nfl-picks','nfl-record','nfl-completed',null);renderPickCollection(nflNov5Picks,'nflnov5-picks','nflnov5-record','nflnov5-completed',null);}
+function renderNFL(){renderWeek9DraftKings(nov22FanDuelTickets,'nov22-fd-tickets');renderPickCollection(nflNov19Picks,'nflnov19-picks','nflnov19-record','nflnov19-completed',null);renderPickCollection(nflNov12Picks,'nflnov12-picks','nflnov12-record','nflnov12-completed',null);renderPickCollection(nflPicks,'nfl-picks','nfl-record','nfl-completed',null);renderPickCollection(nflNov5Picks,'nflnov5-picks','nflnov5-record','nflnov5-completed',null);}
 async function refreshNFL(){
 const label=document.getElementById('nfl-updated'),newLabel=document.getElementById('nflnov5-updated'),latestLabel=document.getElementById('nflnov12-updated'),week11Label=document.getElementById('nflnov19-updated');label.textContent=' Checking ESPN NFL…';newLabel.textContent=label.textContent;latestLabel.textContent=label.textContent;week11Label.textContent=label.textContent;
-const results=await Promise.allSettled([...new Set([...nflPicks,...nflNov5Picks,...nflNov12Picks,...nflNov19Picks].map(p=>p.date))].map(async date=>{
+const results=await Promise.allSettled([...new Set([...nflPicks,...nflNov5Picks,...nflNov12Picks,...nflNov19Picks,...nov22FanDuelTickets.flatMap(t=>t.legs).filter(p=>p.league==='nfl')].map(p=>p.date))].map(async date=>{
 const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates='+date+'&limit=100&t='+Date.now(),{cache:'no-store'});
 if(!r.ok)throw Error('HTTP '+r.status);
 return {date,data:await r.json()};
