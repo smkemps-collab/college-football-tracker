@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lloyd Martin Pick 'Em Tracker</title>
 <style>
-:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#0b1422;color:#f0f5ff}body{max-width:940px;margin:auto;padding:24px 15px}h1{font-size:clamp(25px,4vw,38px);margin:0}p{color:#b4c3d7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:12px}.card,.stat{background:#142339;border:1px solid #30425b;border-radius:13px;padding:17px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}.stat strong{font-size:26px;display:block}.stat small{color:#a9bfd9}.pick{font-size:21px;font-weight:750}.note{font-size:13px;color:#b5c6d9}.score{font-size:23px;font-weight:700;margin:14px 0 6px}.status{display:inline-block;padding:4px 9px;background:#37506b;border-radius:30px;font-size:12px}.W{background:#16583d}.L{background:#793940}.P{background:#67551b}.best{color:#f8d16f}button{border:0;border-radius:8px;background:#dbeaff;padding:12px 18px;font-weight:700;cursor:pointer;margin:12px 0;color:#12213a}a{color:#9acbff}.disclaimer{padding:13px;background:#243248;border-left:4px solid #edc565;border-radius:5px}footer{margin-top:25px;font-size:13px;color:#adc0d6}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.tabs .tab{margin:0;background:#1a304b;color:#c5d7ed;border:1px solid #3c5370}.tabs .tab.active{background:#dbeaff;color:#12213a;border-color:#dbeaff}.tabs .tab:focus-visible{outline:3px solid #f8d16f;outline-offset:2px}[role="tabpanel"][hidden]{display:none}.probability{padding:10px;margin:12px 0;border:1px solid #344c65;border-radius:9px;background:#0d1a2b}.prob-label{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700}.prob-track{display:flex;height:13px;border-radius:10px;overflow:hidden;margin:8px 0 5px;background:#435267}.prob-win{background:#2bb98b}.prob-loss{background:#d86772}.prob-note{font-size:11px;color:#b5c6d9}</style></head>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#0b1422;color:#f0f5ff}body{max-width:940px;margin:auto;padding:24px 15px}h1{font-size:clamp(25px,4vw,38px);margin:0}p{color:#b4c3d7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:12px}.card,.stat{background:#142339;border:1px solid #30425b;border-radius:13px;padding:17px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}.stat strong{font-size:26px;display:block}.stat small{color:#a9bfd9}.pick{font-size:21px;font-weight:750}.note{font-size:13px;color:#b5c6d9}.score{font-size:23px;font-weight:700;margin:14px 0 6px}.status{display:inline-block;padding:4px 9px;background:#37506b;border-radius:30px;font-size:12px}.W{background:#16583d}.L{background:#793940}.P{background:#67551b}.best{color:#f8d16f}button{border:0;border-radius:8px;background:#dbeaff;padding:12px 18px;font-weight:700;cursor:pointer;margin:12px 0;color:#12213a}a{color:#9acbff}.disclaimer{padding:13px;background:#243248;border-left:4px solid #edc565;border-radius:5px}footer{margin-top:25px;font-size:13px;color:#adc0d6}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.tabs .tab{margin:0;background:#1a304b;color:#c5d7ed;border:1px solid #3c5370}.tabs .tab.active{background:#dbeaff;color:#12213a;border-color:#dbeaff}.tabs .tab:focus-visible{outline:3px solid #f8d16f;outline-offset:2px}[role="tabpanel"][hidden]{display:none}.chance{margin-top:10px}.chance-labels{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;font-size:13px}.chance-bar{height:8px;display:flex;overflow:hidden;border-radius:8px;margin:5px 0}.chance-win{background:#5bd6a0}.chance-push{background:#f8d16f}.chance-loss{background:#f08f96}.points-meter{display:block;width:100%;height:9px;accent-color:#5bd6a0}</style></head>
 <body><h1>Lloyd Martin Pick 'Em Tracker</h1>
-<p>College football and NFL selections · All times Eastern</p><p class="note">Green tracks winning probability; red tracks losing probability. Pregame percentages reflect recorded odds. Live estimates use score and clock, not sportsbook live odds. Refreshes with ESPN scores every 60 seconds.</p>
+<p>College football and NFL selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
 <button type="button" class="tab active" id="tab-week12" role="tab" aria-selected="true" aria-controls="panel-week12" tabindex="0">Lloyd Martin · Nov 20–21</button>
 <button type="button" class="tab" id="tab-nov22fd" role="tab" aria-selected="false" aria-controls="panel-nov22fd" tabindex="-1">Nov 22 · FanDuel</button>
@@ -121,7 +121,7 @@
 <div class="stats"><div class="stat"><small>NFL ATS record (W–L–P)</small><strong id="nflnov5-record">0–0–0</strong></div><div class="stat"><small>Games completed</small><strong id="nflnov5-completed">0 / 15</strong></div></div>
 <button type="button" id="refresh-nflnov5">↻ Refresh NFL scores</button><span id="nflnov5-updated" class="note" aria-live="polite">Preparing NFL scoreboard…</span><div class="grid" id="nflnov5-picks"></div>
 </section>
-<footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Oregon on November 20; Arizona on November 14; Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
+<footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. Live percentages are rough score-and-clock estimates based on the locked line and assumed scoring variation. Booked implied chances use the original ticket prices. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Oregon on November 20; Arizona on November 14; Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
 function selectTab(id){for(const key of ['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
 for(const key of ['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
@@ -1496,77 +1496,101 @@ const week9DraftKingsTickets=[
     ]
   }
 ];
-
-function impliedOdds(odds){
- const v=String(odds??'').trim().replace(/[−–]/g,'-');
- if(/^(even|evens|ev)$/i.test(v))return .5;
- if(!/^[+-]?[0-9]+$/.test(v))return null;
- const n=Number(v);
- return n>=100?100/(n+100):n<=-100?-n/(-n+100):null;
+const scoringModel={
+  nfl:{periods:4,seconds:900,margin:14,total:14,team:10},
+  'college-football':{periods:4,seconds:900,margin:19,total:18,team:13},
+  'mens-college-basketball':{periods:2,seconds:1200,margin:12,total:15,team:10}
+};
+function normalCdf(x){
+  const scaled=x/Math.SQRT2;
+  const magnitude=Math.abs(scaled);
+  const t=1/(1+0.3275911*magnitude);
+  const erf=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-magnitude*magnitude);
+  return (1+Math.sign(scaled)*erf)/2;
 }
-function probabilityBar(p,label,detail){
- if(p===null||!Number.isFinite(p))return '<div class="probability"><div class="prob-label"><span>Win / lose probability</span><span>Unavailable</span></div><div class="prob-note">'+detail+'</div></div>';
- let w=Math.round(Math.max(0,Math.min(1,p))*100);
- return '<div class="probability" role="img" aria-label="'+label+': '+w+' percent win, '+(100-w)+' percent lose"><div class="prob-label"><span>'+label+'</span><span>'+w+'% win · '+(100-w)+'% lose</span></div><div class="prob-track"><div class="prob-win" style="width:'+w+'%"></div><div class="prob-loss" style="width:'+(100-w)+'%"></div></div><div class="prob-note">'+detail+'</div></div>';
+function liveChances(game,market,line,under){
+  if(!game?.live||![game.sa,game.sb].every(Number.isFinite))return null;
+  const model=scoringModel[game.league];
+  const clock=String(game.clock??'').match(/^(\d{1,2}):([0-5]\d)(?:\.\d+)?$/);
+  if(!model||!clock||!Number.isInteger(game.period)||game.period<1||game.period>model.periods)return null;
+  const seconds=Number(clock[1])*60+Number(clock[2]);
+  if(seconds>model.seconds||(market!=='moneyline'&&!Number.isFinite(line)))return null;
+  const remaining=(model.periods-game.period+seconds/model.seconds)/model.periods;
+  const team=market==='team-under'||market==='team-over';
+  const total=market==='total'||team;
+  const observed=total?(team?game.sa:game.sa+game.sb):game.sa-game.sb;
+  const threshold=total?line:market==='spread'?-line:0;
+  const mean=observed+threshold*remaining;
+  const deviation=(team?model.team:total?model.total:model.margin)*Math.sqrt(Math.max(remaining,0.015));
+  let below=normalCdf((Math.ceil(threshold)-0.5-mean)/deviation);
+  let above=1-normalCdf((Math.floor(threshold)+0.5-mean)/deviation);
+  if(total&&observed>=threshold){
+    below=0;
+    if(observed>threshold)above=1;
+  }
+  if(market==='moneyline'&&game.league!=='nfl'){
+    above+=(1-above-below)/2;
+    below=1-above;
+  }
+  return {win:under?below:above,push:Math.max(0,1-above-below)};
 }
-function remainingFraction(e){
- const period=Number(e?.status?.period);
- let seconds=Number(e?.status?.clock);
- if(!Number.isFinite(seconds)){const m=String(e?.status?.displayClock||'').match(/([0-9]+):([0-9]+)/);seconds=m?Number(m[1])*60+Number(m[2]):NaN;}
- if(!Number.isFinite(period)||!Number.isFinite(seconds)||period<1)return null;
- return Math.max(0,Math.min(1,((4-period)*900+seconds)/3600));
+function chanceMeter(game,market,line,under,result,odds){
+  const raw=String(odds??'').trim().replace(/[−–]/g,'-');
+  const price=/^(even|evens|ev)$/i.test(raw)?100:Number(raw);
+  const booked=Number.isFinite(price)&&Math.abs(price)>=100
+    ? '<div class="note">Booked implied chance '+(100*(price>0?100:-price)/(100+Math.abs(price))).toFixed(1)+'%</div>' : '';
+  const final=['W','L','P'].includes(result);
+  const chance=final?{win:Number(result==='W'),push:Number(result==='P')}:liveChances(game,market,line,under);
+  if(!chance)return '<div class="chance"><div class="note">'+(game&&!game.live&&!game.final?'Awaiting game start':'Live estimate unavailable')+'</div>'+booked+'</div>';
+  const win=Math.round(chance.win*100),push=Math.min(100-win,Math.round(chance.push*100));
+  const segments=[['Win',win],['Push',push],['Loss',100-win-push]].filter(([name,value])=>name!=='Push'||value>0);
+  const updated=game?.updated?new Date(game.updated).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET':'';
+  return '<div class="chance"><div class="note">'+(final?'Final':'Live estimate'+(updated?' · '+updated:''))+'</div>'+
+    '<div class="chance-labels">'+segments.map(([name,value])=>'<span>'+name+' '+value+'%</span>').join('')+'</div>'+
+    '<div class="chance-bar" aria-hidden="true">'+segments.map(([name,value])=>'<span class="chance-'+name.toLowerCase()+'" style="width:'+value+'%"></span>').join('')+'</div>'+booked+'</div>';
 }
-function estimateLive(p,f,market){
- if(!f||(!f.live&&!f.final)||!Number.isFinite(f.sa)||!Number.isFinite(f.sb))return null;
- const line=Number(p.line??p.spread);
- let margin;
- if(market==='moneyline')margin=f.sa-f.sb;
- else if(market==='spread')margin=f.sa-f.sb+line;
- else if(market==='total')margin=(/under/i.test(p.label)?1:-1)*(line-f.sa-f.sb);
- else if(market==='team-over')margin=f.sa-line;
- else if(market==='team-under')margin=line-f.sa;
- else return null;
- if(!Number.isFinite(margin))return null;
- if(f.final)return margin>0?1:margin<0?0:null;
- const league=p.league||'college-football';
- if(league!=='nfl'&&league!=='college-football')return null;
- const e=events.find(e=>(e.trackerLeague||'college-football')===league&&e.trackerDate===p.date&&(e.competitions?.[0]?.competitors||[]).some(x=>equivalent(x,p.team))&&(e.competitions?.[0]?.competitors||[]).some(x=>equivalent(x,p.opponent)));
- const remaining=remainingFraction(e);
- if(remaining===null)return null;
- const sigma=(league==='nfl'?14:18)*Math.sqrt(Math.max(.02,remaining));
- const scoreChance=1/(1+Math.exp(-margin*1.7/sigma));
- const baseline=impliedOdds(p.odds)??.5;
- const weight=Math.max(.05,Math.min(.97,1-remaining));
- return Math.max(0,Math.min(1,baseline*(1-weight)+scoreChance*weight));
+function showPoints(id,earned,maximum){
+  document.getElementById(id).innerHTML=earned+' / '+maximum+
+    '<progress class="points-meter" aria-label="Contest points earned" value="'+earned+'" max="'+maximum+'"></progress>';
 }
-function betBar(p,f){
- const implied=impliedOdds(p.odds);
- const live=estimateLive(p,f,p.market);
- if(live!==null)return probabilityBar(live,f.final?'Final outcome':'Live estimated probability','Score and clock estimate, not live sportsbook odds.'+(implied!==null?' Pregame implied: '+Math.round(implied*100)+'%.':''));
- return probabilityBar(implied,'Pregame implied probability',implied!==null?'Based on recorded American odds (includes bookmaker margin). No supported live probability.':'Odds or supported result data unavailable; no percentage estimated.');
-}
-function contestBar(p,f,league){
- const live=estimateLive({...p,league},f,'spread');
- return probabilityBar(live,f?.final?'Final outcome':'Live estimated cover probability',live===null?'No reliable live score and clock; contest odds not recorded.':'Score and clock heuristic, not sportsbook live odds.');
-}
-
 function renderWeek9DraftKings(tickets=week9DraftKingsTickets,gridId='week9-dk-tickets'){
-document.getElementById(gridId).innerHTML=tickets.map(ticket=>'<article class="card"><h3>'+ticket.title+'</h3>'+ticket.legs.map(p=>{
-let status='Open · awaiting result',cls='',score='';
+document.getElementById(gridId).innerHTML=tickets.map(ticket=>{
+const outcomes=[];
+const legs=ticket.legs.map(p=>{
+let status='Open · awaiting result',cls='',score='',f=null;
+const under=p.market==='team-under'||(p.market==='total'&&/\bunder\b/i.test(p.label));
 if(p.market==='golf')status='Awaiting golf result';
-else if(p.market==='player'||p.market==='half-total'||p.league==='mens-college-basketball')status='Awaiting manual result confirmation';
+else if(p.market==='player'||p.market==='half-total')status='Awaiting manual result confirmation';
 else if(p.market==='incomplete')status='Incomplete · settlement unverified';
 else{
-const f=find([p.team,p.opponent,0],p.date,p.league);
+f=find([p.team,p.opponent,0],p.date,p.league);
 if(f&&(f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){
-const margin=p.market==='moneyline'?f.sa-f.sb:p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?p.line-f.sa-f.sb:p.market==='team-over'?f.sa-p.line:p.line-f.sa;
+const margin=p.market==='moneyline'?f.sa-f.sb:p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?(under?p.line-f.sa-f.sb:f.sa+f.sb-p.line):p.market==='team-over'?f.sa-p.line:p.line-f.sa;
 score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;
 if(f.final){status=margin>0?'Won':margin<0?'Lost':'Push';cls=margin>0?'W':margin<0?'L':'P';}
 else status='Live · '+(f.detail||'In progress');
 }
 }
-return '<div><div class="pick">'+p.label+' <span class="note">'+p.odds+'</span></div><p class="note">'+(p.detail||p.team+' vs. '+p.opponent+' · '+readableDate(p.date))+'</p><span class="status '+cls+'">'+status+'</span>'+(score?'<p>'+score+'</p>':'')+betBar(p,p.team&&p.opponent&&p.date?find([p.team,p.opponent,0],p.date,p.league):null)+'</div><hr>';
-}).join('')+'<p class="note">'+ticket.notes+'</p></article>').join('');
+outcomes.push({result:cls,game:f,estimate:liveChances(f,p.market,p.line,under)});
+return '<div><div class="pick">'+p.label+' <span class="note">'+p.odds+'</span></div><p class="note">'+(p.detail||p.team+' vs. '+p.opponent+' · '+readableDate(p.date))+'</p><span class="status '+cls+'">'+status+'</span>'+(score?'<p>'+score+'</p>':'')+chanceMeter(f,p.market,p.line,under,cls,p.odds)+'</div><hr>';
+}).join('');
+let summary='';
+if(ticket.legs.length>1&&/parlay/i.test(ticket.title)&&!/round robin/i.test(ticket.title)){
+  // Combine only distinct matchups. Same-game legs may be correlated.
+  const keys=ticket.legs.map(p=>[p.league||'college-football',p.date,...[p.team,p.opponent].sort()].join('|'));
+  const final=outcomes.some(o=>o.result==='L')?'L':outcomes.every(o=>o.result==='W')?'W':'';
+  const independent=new Set(keys).size===keys.length;
+  if(final)summary=chanceMeter(null,'parlay',null,false,final);
+  else if(independent&&outcomes.every(o=>o.result==='W'||(!o.result&&o.estimate&&o.estimate.push<0.00001))){
+    const win=Math.round(100*outcomes.reduce((value,o)=>value*(o.result==='W'?1:o.estimate.win),1));
+    summary='<div class="chance"><div class="note">Parlay estimate · assumes independent games</div>'+
+      '<div class="chance-labels"><span>Win '+win+'%</span><span>Loss '+(100-win)+'%</span></div>'+
+      '<div class="chance-bar" aria-hidden="true"><span class="chance-win" style="width:'+win+'%"></span>'+
+      '<span class="chance-loss" style="width:'+(100-win)+'%"></span></div></div>';
+  }else summary='<div class="note">Parlay live estimate unavailable</div>';
+}
+return '<article class="card"><h3>'+ticket.title+'</h3>'+summary+legs+'<p class="note">'+ticket.notes+'</p></article>';
+}).join('');
 }
 
 const currentPicks=[
@@ -1604,11 +1628,11 @@ const f=find([p.team,p.opponent,p.spread],p.date,(items===nflPicks||items===nflN
 let status='Scheduled',cls='',score='Not started',details=readableDate(p.date)+' · '+p.time+' ET';
 if(f){if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){w++;points+=p.best?2:1;status='Covered';cls='W'}else if(f.margin<0){l++;status='Missed';cls='L'}else{push++;points+=p.best?1:.5;status='Push';cls='P'}}else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';
 if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;details='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+(f.detail||'')}else if(f.detail)details=f.detail;}
-return '<div class="card"><div class="pick">'+p.team+' '+signed+(p.best?' <span class="best">★ 2× BEST</span>':'')+'</div><p>'+p.venue+' '+p.opponent+' · '+readableDate(p.date)+' · '+p.time+' ET'+(p.tv?' · '+p.tv:'')+'</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+details+'</div>'+contestBar(p,f,(items===nflPicks||items===nflNov5Picks||items===nflNov12Picks||items===nflNov19Picks)?'nfl':'college-football')+'</div>';
+return '<div class="card"><div class="pick">'+p.team+' '+signed+(p.best?' <span class="best">★ 2× BEST</span>':'')+'</div><p>'+p.venue+' '+p.opponent+' · '+readableDate(p.date)+' · '+p.time+' ET'+(p.tv?' · '+p.tv:'')+'</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+details+'</div>'+chanceMeter(f,'spread',p.spread,false,cls)+'</div>';
 }).join('');
 document.getElementById(recordId).textContent=w+'–'+l+'–'+push;
 document.getElementById(completedId).textContent=done+' / '+items.length;
-if(pointsId)document.getElementById(pointsId).textContent=points+' / 7';
+if(pointsId)showPoints(pointsId,points,items.reduce((max,p)=>max+(p.best?2:1),0));
 }
 function renderNewMoneylines(){
 let w=0,l=0,p=0,done=0;
@@ -1621,7 +1645,7 @@ else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently leading':
 if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb))score=pick.team+' '+f.sa+' · '+pick.opponent+' '+f.sb;
 if(f.detail)detail=f.detail;
 }
-return '<div class="card"><div class="pick">'+pick.team+' moneyline</div><p>'+pick.venue+' '+pick.opponent+' · '+readableDate(pick.date)+' · '+pick.time+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+detail+(pick.liveEntry?' · Recorded during live play':'')+'</div></div>';
+return '<div class="card"><div class="pick">'+pick.team+' moneyline</div><p>'+pick.venue+' '+pick.opponent+' · '+readableDate(pick.date)+' · '+pick.time+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+detail+(pick.liveEntry?' · Recorded during live play':'')+'</div>'+chanceMeter(f,'moneyline',null,false,cls)+'</div>';
 }).join('');
 document.getElementById('new-ml-record').textContent=w+'–'+l+'–'+p;
 document.getElementById('new-ml-completed').textContent=done+' / '+moneylinePicks.length;
@@ -1633,15 +1657,15 @@ function renderWeek10(){renderPickCollection(week10Picks,'week10-picks','week10-
 function renderWeek9(){renderWeek9DraftKings(nov21FanDuelTickets,'nov21-fd-tickets');renderWeek9DraftKings(nov14DraftKingsTickets,'nov14-dk-tickets');renderWeek9DraftKings(nov10DraftKingsTickets,'nov10-dk-tickets');renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
 function renderCurrent(){renderNewMoneylines();renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
-function find(p,date,league='college-football'){for(const e of events){if((e.trackerLeague||'college-football')!==league)continue;if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b){const sc=x=>typeof x.score==='object'?Number(x.score.value??x.score.displayValue):Number(x.score);let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
+function find(p,date,league='college-football'){for(const e of events){if((e.trackerLeague||'college-football')!==league)continue;if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b&&a!==b){const sc=x=>{const raw=x.score&&typeof x.score==='object'?x.score.value??x.score.displayValue:x.score;return raw==null||raw===''?NaN:Number(raw);};let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,league,period:e.status?.period,clock:e.status?.displayClock,updated:e.trackerUpdated,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
 function renderMoneyline(){
-const a=find(mlPick),b=find(totalPick);
+const a=find(mlPick,'20261015'),b=find(totalPick,'20261015');
 function leg(f,total){if(!f)return {label:'Scheduled',result:null,score:'Not started'};const score=(total?'Georgia Southern':'UAB')+' '+f.sa+' · '+(total?'Old Dominion':'East Carolina')+' '+f.sb;const won=total?f.sa<26.5:f.sa>f.sb;return {label:f.final?(won?'Won':'Lost'):f.live?(total?(won?'Under 26.5 so far':'Over 26.5'):(won?'Currently leading':f.sa<f.sb?'Currently trailing':'Tied')):'Scheduled',result:f.final?(won?'W':'L'):total&&f.live&&!won?'L':null,score:(f.live||f.final)?score:'Not started',detail:f.detail||''}}
 const x=leg(a,false),y=leg(b,true),result=x.result==='L'||y.result==='L'?'L':x.result==='W'&&y.result==='W'?'W':'';
 const status=result==='W'?'Won':result==='L'?'Lost':'Open';
-document.getElementById('moneyline').innerHTML='<div class="card"><div class="pick">2-leg parlay · +380</div><p>DraftKings · Thursday, Oct 15 · 7:30 PM ET</p><span class="status '+result+'">'+status+'</span><p>$4.00 wager · $19.20 potential payout · $15.20 potential profit</p><div class="pick">UAB moneyline +180</div><p>vs. East Carolina · '+x.label+'</p><div class="score">'+x.score+'</div><div class="note">'+x.detail+'</div><hr><div class="pick">Georgia Southern under 26.5 −140</div><p>Team total points vs. Old Dominion · '+y.label+'</p><div class="score">'+y.score+'</div><div class="note">'+y.detail+'</div><p class="note">Both legs must win. Georgia Southern must score 26 or fewer. Excluded from ATS contest points. Recorded from your placed bet screenshot.</p></div>';
+document.getElementById('moneyline').innerHTML='<div class="card"><div class="pick">2-leg parlay · +380</div><p>DraftKings · Thursday, Oct 15 · 7:30 PM ET</p><span class="status '+result+'">'+status+'</span><p>$4.00 wager · $19.20 potential payout · $15.20 potential profit</p><div class="pick">UAB moneyline +180</div><p>vs. East Carolina · '+x.label+'</p><div class="score">'+x.score+'</div><div class="note">'+x.detail+'</div>'+chanceMeter(a,'moneyline',null,false,x.result,'+180')+'<hr><div class="pick">Georgia Southern under 26.5 −140</div><p>Team total points vs. Old Dominion · '+y.label+'</p><div class="score">'+y.score+'</div><div class="note">'+y.detail+'</div>'+chanceMeter(b,'team-under',26.5,true,y.result,'−140')+'<p class="note">Both legs must win. Georgia Southern must score 26 or fewer. Excluded from ATS contest points. Recorded from your placed bet screenshot.</p></div>';
 }
-function render(){renderMoneyline();let wins=0,losses=0,pushes=0,points=0,done=0,cover=0,live=0;document.getElementById('games').innerHTML=picks.map(p=>{const f=find(p),signed=p[2]>0?'+'+p[2]:p[2];let status='Scheduled',cls='',score='Not started',extra='Kickoff '+p[3]+' ET';if(f){if(f.final){done++;if(f.margin>0){wins++;points+=p[4]?2:1;status='Covered';cls='W'}else if(f.margin<0){losses++;status='Missed';cls='L'}else{pushes++;points+=p[4]?1:0.5;status='Push';cls='P'}}else if(f.live){live++;status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';if(f.margin>0)cover++}if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p[0]+' '+f.sa+' · '+p[1]+' '+f.sb;extra='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+f.detail}else if(f.detail)extra=f.detail}return '<div class="card"><div class="pick">'+p[0]+' '+signed+(p[4]?' <span class="best">★ 2× BEST</span>':'')+'</div><p>vs. '+p[1]+' · '+p[3]+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><span class="note">'+extra+'</span></div>'}).join('');document.getElementById('record').textContent=wins+'–'+losses+'–'+pushes;document.getElementById('points').textContent=points+' / 7';document.getElementById('completed').textContent=done+' / 6';document.getElementById('covering').textContent=live?cover+' / '+live+' live':'—'}
+function render(){renderMoneyline();let wins=0,losses=0,pushes=0,points=0,done=0,cover=0,live=0;document.getElementById('games').innerHTML=picks.map(p=>{const f=find(p),signed=p[2]>0?'+'+p[2]:p[2];let status='Scheduled',cls='',score='Not started',extra='Kickoff '+p[3]+' ET';if(f){if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){wins++;points+=p[4]?2:1;status='Covered';cls='W'}else if(f.margin<0){losses++;status='Missed';cls='L'}else{pushes++;points+=p[4]?1:0.5;status='Push';cls='P'}}else if(f.live){live++;status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';if(f.margin>0)cover++}if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p[0]+' '+f.sa+' · '+p[1]+' '+f.sb;extra='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+f.detail}else if(f.detail)extra=f.detail}return '<div class="card"><div class="pick">'+p[0]+' '+signed+(p[4]?' <span class="best">★ 2× BEST</span>':'')+'</div><p>vs. '+p[1]+' · '+p[3]+' ET</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><span class="note">'+extra+'</span>'+chanceMeter(f,'spread',p[2],false,cls)+'</div>'}).join('');document.getElementById('record').textContent=wins+'–'+losses+'–'+pushes;showPoints('points',points,7);document.getElementById('completed').textContent=done+' / 6';document.getElementById('covering').textContent=live?cover+' / '+live+' live':'—'}
 function renderNFL(){renderWeek9DraftKings(nov22FanDuelTickets,'nov22-fd-tickets');renderPickCollection(nflNov19Picks,'nflnov19-picks','nflnov19-record','nflnov19-completed',null);renderPickCollection(nflNov12Picks,'nflnov12-picks','nflnov12-record','nflnov12-completed',null);renderPickCollection(nflPicks,'nfl-picks','nfl-record','nfl-completed',null);renderPickCollection(nflNov5Picks,'nflnov5-picks','nflnov5-record','nflnov5-completed',null);}
 async function refreshNFL(){
 const label=document.getElementById('nfl-updated'),newLabel=document.getElementById('nflnov5-updated'),latestLabel=document.getElementById('nflnov12-updated'),week11Label=document.getElementById('nflnov19-updated');label.textContent=' Checking ESPN NFL…';newLabel.textContent=label.textContent;latestLabel.textContent=label.textContent;week11Label.textContent=label.textContent;
@@ -1651,7 +1675,7 @@ if(!r.ok)throw Error('HTTP '+r.status);
 return {date,data:await r.json()};
 }));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
-if(good.length){const dates=new Set(good.map(x=>x.date));events=events.filter(e=>e.trackerLeague!=='nfl'||!dates.has(e.trackerDate)).concat(good.flatMap(x=>(x.data.events||[]).map(e=>({...e,trackerDate:x.date,trackerLeague:'nfl'}))));}
+if(good.length){const dates=new Set(good.map(x=>x.date));events=events.filter(e=>e.trackerLeague!=='nfl'||!dates.has(e.trackerDate)).concat(good.flatMap(x=>(x.data.events||[]).map(e=>({...e,trackerDate:x.date,trackerLeague:'nfl',trackerUpdated:Date.now()}))));}
 renderNFL();
 label.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' · '+nflPicks.filter(p=>find([p.team,p.opponent,p.spread],p.date,'nfl')).length+'/14 NFL games matched'+(good.length<results.length?' · Some date feeds unavailable':''):' ESPN NFL feed unavailable. Retry later.';
 newLabel.textContent=good.length?' Updated '+new Date().toLocaleTimeString()+' · '+nflNov5Picks.filter(p=>find([p.team,p.opponent,p.spread],p.date,'nfl')).length+'/15 NFL games matched'+(good.length<results.length?' · Some date feeds unavailable':''):' ESPN NFL feed unavailable. Retry later.';
@@ -1665,7 +1689,8 @@ const dates=[...new Set(['20261015','20261017',...week12Picks.map(p=>p.date),...
 const results=await Promise.allSettled(dates.map(async date=>{const r=await fetch('https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?dates='+date+'&groups=80&limit=500&t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return {date,data:await r.json()}}));
 const good=results.filter(x=>x.status==='fulfilled').map(x=>x.value);
 if(!good.length){label.textContent=' ESPN feed unavailable. Retry later.';currentLabel.textContent=label.textContent;midweekLabel.textContent=label.textContent;document.getElementById('week12-updated').textContent=label.textContent;renderWeek12();document.getElementById('nov14-updated').textContent=label.textContent;renderNov14();document.getElementById('bear-updated').textContent=label.textContent;renderBear();document.getElementById('week10-updated').textContent=label.textContent;renderWeek10();document.getElementById('week9-updated').textContent=label.textContent;renderWeek9();render();renderCurrent();return;}
-events=events.filter(e=>e.trackerLeague==='nfl').concat(good.flatMap(x=>(x.data.events||[]).map(e=>({...e,trackerDate:x.date}))));
+const refreshedDates=new Set(good.map(x=>x.date));
+events=events.filter(e=>e.trackerLeague||!refreshedDates.has(e.trackerDate)).concat(good.flatMap(x=>(x.data.events||[]).map(e=>({...e,trackerDate:x.date,trackerUpdated:Date.now()}))));
 const matches=picks.filter(p=>find(p)).length;
 const currentMatches=currentPicks.filter(p=>find([p.team,p.opponent,p.spread])).length;
 const midweekMatches=midweekPicks.filter(p=>find([p.team,p.opponent,p.spread])).length;
@@ -1692,5 +1717,17 @@ document.getElementById('refresh-nfl').addEventListener('click',refreshNFL);
 document.getElementById('refresh-nflnov5').addEventListener('click',refreshNFL);
 document.getElementById('refresh-nflnov12').addEventListener('click',refreshNFL);
 document.getElementById('refresh-nflnov19').addEventListener('click',refreshNFL);
-renderWeek12();renderNov14();renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('week12');refresh();refreshNFL();setInterval(refresh,60000);setInterval(refreshNFL,60000);
+async function refreshBasketball(){
+  const league='mens-college-basketball';
+  const dates=new Set(nov22FanDuelTickets.flatMap(ticket=>ticket.legs).filter(p=>p.league===league).map(p=>p.date));
+  await Promise.allSettled([...dates].map(async date=>{
+    const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/'+league+'/scoreboard?groups=50&limit=500&dates='+date,{cache:'no-store'});
+    if(!response.ok)throw Error('HTTP '+response.status);
+    const data=await response.json();
+    events=events.filter(e=>e.trackerLeague!==league||e.trackerDate!==date)
+      .concat((data.events||[]).map(e=>({...e,trackerDate:date,trackerLeague:league,trackerUpdated:Date.now()})));
+  }));
+  renderWeek9DraftKings(nov22FanDuelTickets,'nov22-fd-tickets');
+}
+renderWeek12();renderNov14();renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('week12');refresh();refreshNFL();refreshBasketball();setInterval(refresh,60000);setInterval(refreshNFL,60000);setInterval(refreshBasketball,60000);
 </script></body></html>
