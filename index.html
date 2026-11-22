@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lloyd Martin Pick 'Em Tracker</title>
 <style>
-:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#0b1422;color:#f0f5ff}body{max-width:940px;margin:auto;padding:24px 15px}h1{font-size:clamp(25px,4vw,38px);margin:0}p{color:#b4c3d7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:12px}.card,.stat{background:#142339;border:1px solid #30425b;border-radius:13px;padding:17px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}.stat strong{font-size:26px;display:block}.stat small{color:#a9bfd9}.pick{font-size:21px;font-weight:750}.note{font-size:13px;color:#b5c6d9}.score{font-size:23px;font-weight:700;margin:14px 0 6px}.status{display:inline-block;padding:4px 9px;background:#37506b;border-radius:30px;font-size:12px}.W{background:#16583d}.L{background:#793940}.P{background:#67551b}.best{color:#f8d16f}button{border:0;border-radius:8px;background:#dbeaff;padding:12px 18px;font-weight:700;cursor:pointer;margin:12px 0;color:#12213a}a{color:#9acbff}.disclaimer{padding:13px;background:#243248;border-left:4px solid #edc565;border-radius:5px}footer{margin-top:25px;font-size:13px;color:#adc0d6}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.tabs .tab{margin:0;background:#1a304b;color:#c5d7ed;border:1px solid #3c5370}.tabs .tab.active{background:#dbeaff;color:#12213a;border-color:#dbeaff}.tabs .tab:focus-visible{outline:3px solid #f8d16f;outline-offset:2px}[role="tabpanel"][hidden]{display:none}</style></head>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#0b1422;color:#f0f5ff}body{max-width:940px;margin:auto;padding:24px 15px}h1{font-size:clamp(25px,4vw,38px);margin:0}p{color:#b4c3d7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:12px}.card,.stat{background:#142339;border:1px solid #30425b;border-radius:13px;padding:17px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}.stat strong{font-size:26px;display:block}.stat small{color:#a9bfd9}.pick{font-size:21px;font-weight:750}.note{font-size:13px;color:#b5c6d9}.score{font-size:23px;font-weight:700;margin:14px 0 6px}.status{display:inline-block;padding:4px 9px;background:#37506b;border-radius:30px;font-size:12px}.W{background:#16583d}.L{background:#793940}.P{background:#67551b}.best{color:#f8d16f}button{border:0;border-radius:8px;background:#dbeaff;padding:12px 18px;font-weight:700;cursor:pointer;margin:12px 0;color:#12213a}a{color:#9acbff}.disclaimer{padding:13px;background:#243248;border-left:4px solid #edc565;border-radius:5px}footer{margin-top:25px;font-size:13px;color:#adc0d6}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.tabs .tab{margin:0;background:#1a304b;color:#c5d7ed;border:1px solid #3c5370}.tabs .tab.active{background:#dbeaff;color:#12213a;border-color:#dbeaff}.tabs .tab:focus-visible{outline:3px solid #f8d16f;outline-offset:2px}[role="tabpanel"][hidden]{display:none}.probability{padding:10px;margin:12px 0;border:1px solid #344c65;border-radius:9px;background:#0d1a2b}.prob-label{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:700}.prob-track{display:flex;height:13px;border-radius:10px;overflow:hidden;margin:8px 0 5px;background:#435267}.prob-win{background:#2bb98b}.prob-loss{background:#d86772}.prob-note{font-size:11px;color:#b5c6d9}</style></head>
 <body><h1>Lloyd Martin Pick 'Em Tracker</h1>
-<p>College football and NFL selections · All times Eastern</p>
+<p>College football and NFL selections · All times Eastern</p><p class="note">Green tracks winning probability; red tracks losing probability. Pregame percentages reflect recorded odds. Live estimates use score and clock, not sportsbook live odds. Refreshes with ESPN scores every 60 seconds.</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
 <button type="button" class="tab active" id="tab-week12" role="tab" aria-selected="true" aria-controls="panel-week12" tabindex="0">Lloyd Martin · Nov 20–21</button>
 <button type="button" class="tab" id="tab-nov22fd" role="tab" aria-selected="false" aria-controls="panel-nov22fd" tabindex="-1">Nov 22 · FanDuel</button>
@@ -1496,6 +1496,60 @@ const week9DraftKingsTickets=[
     ]
   }
 ];
+
+function impliedOdds(odds){
+ const v=String(odds??'').trim().replace(/[−–]/g,'-');
+ if(/^(even|evens|ev)$/i.test(v))return .5;
+ if(!/^[+-]?[0-9]+$/.test(v))return null;
+ const n=Number(v);
+ return n>=100?100/(n+100):n<=-100?-n/(-n+100):null;
+}
+function probabilityBar(p,label,detail){
+ if(p===null||!Number.isFinite(p))return '<div class="probability"><div class="prob-label"><span>Win / lose probability</span><span>Unavailable</span></div><div class="prob-note">'+detail+'</div></div>';
+ let w=Math.round(Math.max(0,Math.min(1,p))*100);
+ return '<div class="probability" role="img" aria-label="'+label+': '+w+' percent win, '+(100-w)+' percent lose"><div class="prob-label"><span>'+label+'</span><span>'+w+'% win · '+(100-w)+'% lose</span></div><div class="prob-track"><div class="prob-win" style="width:'+w+'%"></div><div class="prob-loss" style="width:'+(100-w)+'%"></div></div><div class="prob-note">'+detail+'</div></div>';
+}
+function remainingFraction(e){
+ const period=Number(e?.status?.period);
+ let seconds=Number(e?.status?.clock);
+ if(!Number.isFinite(seconds)){const m=String(e?.status?.displayClock||'').match(/([0-9]+):([0-9]+)/);seconds=m?Number(m[1])*60+Number(m[2]):NaN;}
+ if(!Number.isFinite(period)||!Number.isFinite(seconds)||period<1)return null;
+ return Math.max(0,Math.min(1,((4-period)*900+seconds)/3600));
+}
+function estimateLive(p,f,market){
+ if(!f||(!f.live&&!f.final)||!Number.isFinite(f.sa)||!Number.isFinite(f.sb))return null;
+ const line=Number(p.line??p.spread);
+ let margin;
+ if(market==='moneyline')margin=f.sa-f.sb;
+ else if(market==='spread')margin=f.sa-f.sb+line;
+ else if(market==='total')margin=(/under/i.test(p.label)?1:-1)*(line-f.sa-f.sb);
+ else if(market==='team-over')margin=f.sa-line;
+ else if(market==='team-under')margin=line-f.sa;
+ else return null;
+ if(!Number.isFinite(margin))return null;
+ if(f.final)return margin>0?1:margin<0?0:null;
+ const league=p.league||'college-football';
+ if(league!=='nfl'&&league!=='college-football')return null;
+ const e=events.find(e=>(e.trackerLeague||'college-football')===league&&e.trackerDate===p.date&&(e.competitions?.[0]?.competitors||[]).some(x=>equivalent(x,p.team))&&(e.competitions?.[0]?.competitors||[]).some(x=>equivalent(x,p.opponent)));
+ const remaining=remainingFraction(e);
+ if(remaining===null)return null;
+ const sigma=(league==='nfl'?14:18)*Math.sqrt(Math.max(.02,remaining));
+ const scoreChance=1/(1+Math.exp(-margin*1.7/sigma));
+ const baseline=impliedOdds(p.odds)??.5;
+ const weight=Math.max(.05,Math.min(.97,1-remaining));
+ return Math.max(0,Math.min(1,baseline*(1-weight)+scoreChance*weight));
+}
+function betBar(p,f){
+ const implied=impliedOdds(p.odds);
+ const live=estimateLive(p,f,p.market);
+ if(live!==null)return probabilityBar(live,f.final?'Final outcome':'Live estimated probability','Score and clock estimate, not live sportsbook odds.'+(implied!==null?' Pregame implied: '+Math.round(implied*100)+'%.':''));
+ return probabilityBar(implied,'Pregame implied probability',implied!==null?'Based on recorded American odds (includes bookmaker margin). No supported live probability.':'Odds or supported result data unavailable; no percentage estimated.');
+}
+function contestBar(p,f,league){
+ const live=estimateLive({...p,league},f,'spread');
+ return probabilityBar(live,f?.final?'Final outcome':'Live estimated cover probability',live===null?'No reliable live score and clock; contest odds not recorded.':'Score and clock heuristic, not sportsbook live odds.');
+}
+
 function renderWeek9DraftKings(tickets=week9DraftKingsTickets,gridId='week9-dk-tickets'){
 document.getElementById(gridId).innerHTML=tickets.map(ticket=>'<article class="card"><h3>'+ticket.title+'</h3>'+ticket.legs.map(p=>{
 let status='Open · awaiting result',cls='',score='';
@@ -1511,7 +1565,7 @@ if(f.final){status=margin>0?'Won':margin<0?'Lost':'Push';cls=margin>0?'W':margin
 else status='Live · '+(f.detail||'In progress');
 }
 }
-return '<div><div class="pick">'+p.label+' <span class="note">'+p.odds+'</span></div><p class="note">'+(p.detail||p.team+' vs. '+p.opponent+' · '+readableDate(p.date))+'</p><span class="status '+cls+'">'+status+'</span>'+(score?'<p>'+score+'</p>':'')+'</div><hr>';
+return '<div><div class="pick">'+p.label+' <span class="note">'+p.odds+'</span></div><p class="note">'+(p.detail||p.team+' vs. '+p.opponent+' · '+readableDate(p.date))+'</p><span class="status '+cls+'">'+status+'</span>'+(score?'<p>'+score+'</p>':'')+betBar(p,p.team&&p.opponent&&p.date?find([p.team,p.opponent,0],p.date,p.league):null)+'</div><hr>';
 }).join('')+'<p class="note">'+ticket.notes+'</p></article>').join('');
 }
 
@@ -1550,7 +1604,7 @@ const f=find([p.team,p.opponent,p.spread],p.date,(items===nflPicks||items===nflN
 let status='Scheduled',cls='',score='Not started',details=readableDate(p.date)+' · '+p.time+' ET';
 if(f){if(f.final&&Number.isFinite(f.margin)){done++;if(f.margin>0){w++;points+=p.best?2:1;status='Covered';cls='W'}else if(f.margin<0){l++;status='Missed';cls='L'}else{push++;points+=p.best?1:.5;status='Push';cls='P'}}else if(f.live&&Number.isFinite(f.margin))status=f.margin>0?'Currently covering':f.margin<0?'Currently not covering':'At push';
 if((f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;details='ATS margin '+(f.margin>0?'+':'')+f.margin+' · '+(f.detail||'')}else if(f.detail)details=f.detail;}
-return '<div class="card"><div class="pick">'+p.team+' '+signed+(p.best?' <span class="best">★ 2× BEST</span>':'')+'</div><p>'+p.venue+' '+p.opponent+' · '+readableDate(p.date)+' · '+p.time+' ET'+(p.tv?' · '+p.tv:'')+'</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+details+'</div></div>';
+return '<div class="card"><div class="pick">'+p.team+' '+signed+(p.best?' <span class="best">★ 2× BEST</span>':'')+'</div><p>'+p.venue+' '+p.opponent+' · '+readableDate(p.date)+' · '+p.time+' ET'+(p.tv?' · '+p.tv:'')+'</p><span class="status '+cls+'">'+status+'</span><div class="score">'+score+'</div><div class="note">'+details+'</div>'+contestBar(p,f,(items===nflPicks||items===nflNov5Picks||items===nflNov12Picks||items===nflNov19Picks)?'nfl':'college-football')+'</div>';
 }).join('');
 document.getElementById(recordId).textContent=w+'–'+l+'–'+push;
 document.getElementById(completedId).textContent=done+' / '+items.length;
