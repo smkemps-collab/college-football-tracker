@@ -7,6 +7,7 @@
 <p>College football and NFL selections · All times Eastern</p>
 <nav class="tabs" role="tablist" aria-label="Pick weeks">
 <button type="button" class="tab active" id="tab-week12" role="tab" aria-selected="true" aria-controls="panel-week12" tabindex="0">Lloyd Martin · Nov 20–21</button>
+<button type="button" class="tab" id="tab-nov23dk" role="tab" aria-selected="false" aria-controls="panel-nov23dk" tabindex="-1">Nov 23 · DraftKings</button>
 <button type="button" class="tab" id="tab-nov22fd" role="tab" aria-selected="false" aria-controls="panel-nov22fd" tabindex="-1">Nov 22 · FanDuel</button>
 <button type="button" class="tab" id="tab-nov21fd" role="tab" aria-selected="false" aria-controls="panel-nov21fd" tabindex="-1">Nov 21 · FanDuel</button>
 <button type="button" class="tab" id="tab-nov14dk" role="tab" aria-selected="false" aria-controls="panel-nov14dk" tabindex="-1">Nov 14 · DraftKings</button>
@@ -32,6 +33,7 @@
 <button id="refresh-week12" type="button">↻ Refresh scores</button><span id="week12-updated" class="note" aria-live="polite">Preparing scoreboard…</span><div class="grid" id="week12-picks"></div>
 <p class="note">Alternate (not an entry): Texas A&amp;M +7.5 at Oklahoma.</p>
 </section>
+<section id="panel-nov23dk" hidden role="tabpanel" aria-labelledby="tab-nov23dk"><h2>November 23 · DraftKings</h2><div class="grid" id="nov23-dk-tickets"></div></section>
 <section id="panel-nov22fd" hidden role="tabpanel" aria-labelledby="tab-nov22fd"><h2>November 22 · FanDuel tickets</h2><p class="note">Six tickets for November 22, 2026 · $52.50 total stake · $222.00 combined maximum payout · Times Eastern as printed.</p><div class="grid" id="nov22-fd-tickets"></div></section>
 <section id="panel-nov21fd" hidden role="tabpanel" aria-labelledby="tab-nov21fd"><h2>November 21 · FanDuel tickets</h2><p class="note">Eight tickets placed November 20–21, 2026 at The Greenbrier · $92.00 total stake · All game times Eastern.</p><div class="grid" id="nov21-fd-tickets"></div></section>
 <section id="panel-nov14dk" hidden role="tabpanel" aria-labelledby="tab-nov14dk"><h2>November 14 · DraftKings tickets</h2><p class="note">Eight visible selections from two screenshots, grouped by ticket. Cropped details remain unknown. Separate from Pick’Em points. All times Eastern.</p><div class="grid" id="nov14-dk-tickets"></div></section>
@@ -123,8 +125,38 @@
 </section>
 <footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. Live percentages are rough score-and-clock estimates based on the locked line and assumed scoring variation. Booked implied chances use the original ticket prices. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Oregon on November 20; Arizona on November 14; Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-function selectTab(id){for(const key of ['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
-for(const key of ['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+function selectTab(id){for(const key of ['week12','nov23dk','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
+for(const key of ['week12','nov23dk','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov23dk','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+const nov23DraftKingsTickets=[
+  {
+    "title": "Fort Myers · Two visible totals",
+    "notes": "Placed Nov 23, 2026 · Stake, combined odds and payout are cropped out.",
+    "legs": [
+      {
+        "label": "Over 143.5",
+        "odds": "−108",
+        "team": "Northern Iowa",
+        "opponent": "Davidson",
+        "line": 143.5,
+        "date": "20261123",
+        "market": "total",
+        "league": "mens-college-basketball",
+        "detail": "Northern Iowa vs. Davidson · Fort Myers, FL"
+      },
+      {
+        "label": "Over 147.5",
+        "odds": "−108",
+        "team": "Tulane",
+        "opponent": "Georgia State",
+        "line": 147.5,
+        "date": "20261123",
+        "market": "total",
+        "league": "mens-college-basketball",
+        "detail": "Tulane vs. Georgia State · Fort Myers, FL · 4:00 PM ET"
+      }
+    ]
+  }
+];
 const nov22FanDuelTickets=[
   {
     "title": "Malik Nabers · Straight bet",
@@ -1654,7 +1686,7 @@ function renderBear(){renderPickCollection(bearPicks,'bear-picks','bear-record',
 function renderWeek12(){renderPickCollection(week12Picks,'week12-picks','week12-record','week12-completed','week12-points');}
 function renderNov14(){renderPickCollection(nov14Picks,'nov14-picks','nov14-record','nov14-completed','nov14-points');}
 function renderWeek10(){renderPickCollection(week10Picks,'week10-picks','week10-record','week10-completed','week10-points');}
-function renderWeek9(){renderWeek9DraftKings(nov21FanDuelTickets,'nov21-fd-tickets');renderWeek9DraftKings(nov14DraftKingsTickets,'nov14-dk-tickets');renderWeek9DraftKings(nov10DraftKingsTickets,'nov10-dk-tickets');renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
+function renderWeek9(){renderWeek9DraftKings(nov23DraftKingsTickets,'nov23-dk-tickets');renderWeek9DraftKings(nov21FanDuelTickets,'nov21-fd-tickets');renderWeek9DraftKings(nov14DraftKingsTickets,'nov14-dk-tickets');renderWeek9DraftKings(nov10DraftKingsTickets,'nov10-dk-tickets');renderWeek9DraftKings(nov7DraftKingsTickets,'nov7-dk-tickets');renderWeek9DraftKings(nov3DraftKingsTickets,'nov3-dk-tickets');renderWeek9DraftKings();renderPickCollection(week9Picks,'week9-picks','week9-record','week9-completed','week9-points');}
 function renderCurrent(){renderNewMoneylines();renderPickCollection(currentPicks,'midweek-picks','current-record','current-completed','current-points');renderPickCollection(midweekPicks,'archived-midweek-picks','midweek-record','midweek-completed',null);}
 
 function find(p,date,league='college-football'){for(const e of events){if((e.trackerLeague||'college-football')!==league)continue;if(date&&e.trackerDate!==date)continue;const t=e.competitions?.[0]?.competitors||[],a=t.find(x=>equivalent(x,p[0])),b=t.find(x=>equivalent(x,p[1]));if(a&&b&&a!==b){const sc=x=>{const raw=x.score&&typeof x.score==='object'?x.score.value??x.score.displayValue:x.score;return raw==null||raw===''?NaN:Number(raw);};let sa=sc(a),sb=sc(b),state=e.status?.type?.state;return{sa,sb,league,period:e.status?.period,clock:e.status?.displayClock,updated:e.trackerUpdated,live:state==='in',final:state==='post'||e.status?.type?.completed===true,detail:e.status?.type?.shortDetail||'',margin:sa-sb+p[2]}}}return null}
@@ -1719,7 +1751,7 @@ document.getElementById('refresh-nflnov12').addEventListener('click',refreshNFL)
 document.getElementById('refresh-nflnov19').addEventListener('click',refreshNFL);
 async function refreshBasketball(){
   const league='mens-college-basketball';
-  const dates=new Set(nov22FanDuelTickets.flatMap(ticket=>ticket.legs).filter(p=>p.league===league).map(p=>p.date));
+  const dates=new Set([...nov22FanDuelTickets,...nov23DraftKingsTickets].flatMap(ticket=>ticket.legs).filter(p=>p.league===league).map(p=>p.date));
   await Promise.allSettled([...dates].map(async date=>{
     const response=await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/'+league+'/scoreboard?groups=50&limit=500&dates='+date,{cache:'no-store'});
     if(!response.ok)throw Error('HTTP '+response.status);
@@ -1728,6 +1760,7 @@ async function refreshBasketball(){
       .concat((data.events||[]).map(e=>({...e,trackerDate:date,trackerLeague:league,trackerUpdated:Date.now()})));
   }));
   renderWeek9DraftKings(nov22FanDuelTickets,'nov22-fd-tickets');
+  renderWeek9DraftKings(nov23DraftKingsTickets,'nov23-dk-tickets');
 }
 renderWeek12();renderNov14();renderBear();renderWeek10();renderWeek9();render();renderCurrent();renderNFL();selectTab('week12');refresh();refreshNFL();refreshBasketball();setInterval(refresh,60000);setInterval(refreshNFL,60000);setInterval(refreshBasketball,60000);
 </script></body></html>
