@@ -127,8 +127,33 @@
 </section>
 <footer>Live scores, moneyline results, and ATS results for all pick weeks: ESPN public college football and NFL scoreboards (unofficial; availability and browser access are not guaranteed). Refreshes every 60 seconds while open. Live percentages are rough score-and-clock estimates based on the locked line and assumed scoring variation. Booked implied chances use the original ticket prices. ATS margin = selected team's points − opponent's points + selected spread. A final win scores 1, push 0.5, loss 0; Best Pick results count double (Oregon on November 20; Arizona on November 14; Missouri on November 7; SMU on October 31; Cincinnati on October 24; Nebraska on October 17). For feed problems, compare against the <a href="https://www.espn.com/college-football/scoreboard/_/date/20261017" target="_blank" rel="noopener">ESPN scoreboard</a>.</footer>
 <script>
-function selectTab(id){for(const key of ['week12','nov23dk','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){const selected=key===id,tab=document.getElementById('tab-'+key),panel=document.getElementById('panel-'+key);tab.classList.toggle('active',selected);tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;panel.hidden=!selected;}}
-for(const key of ['week12','nov23dk','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','previous','midweek','nfl']){document.getElementById('tab-'+key).addEventListener('click',()=>selectTab(key));document.getElementById('tab-'+key).addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const order=['week12','nov23dk','nov22fd','nov21fd','nov14dk','nov14','nflnov19','nflnov12','nov10dk','nov7dk','bear','week10','nflnov5','nov3','week9','current','midweek','previous','nfl'],idx=order.indexOf(key),next=e.key==='Home'?order[0]:e.key==='End'?order[order.length-1]:order[(idx+(e.key==='ArrowRight'?1:order.length-1))%order.length];selectTab(next);document.getElementById('tab-'+next).focus();}});}
+const tabs=[...document.querySelectorAll('.tabs [role="tab"]')];
+
+function selectTab(id){
+  for(const tab of tabs){
+    const selected=tab.id==='tab-'+id;
+    tab.classList.toggle('active',selected);
+    tab.setAttribute('aria-selected',String(selected));
+    tab.tabIndex=selected?0:-1;
+    document.getElementById(tab.getAttribute('aria-controls')).hidden=!selected;
+  }
+}
+
+tabs.forEach((tab,index)=>{
+  tab.addEventListener('click',()=>selectTab(tab.id.slice(4)));
+  tab.addEventListener('keydown',event=>{
+    const offsets={ArrowLeft:-1,ArrowRight:1};
+    let nextIndex;
+    if(event.key==='Home')nextIndex=0;
+    else if(event.key==='End')nextIndex=tabs.length-1;
+    else if(event.key in offsets)nextIndex=(index+offsets[event.key]+tabs.length)%tabs.length;
+    else return;
+    event.preventDefault();
+    const next=tabs[nextIndex];
+    selectTab(next.id.slice(4));
+    next.focus();
+  });
+});
 const nov25DraftKingsTickets=[
   {
     "title": "Arkansas vs. Michigan State · Straight bet",
@@ -1630,6 +1655,8 @@ else if(p.market==='player'||p.market==='half-total')status='Awaiting manual res
 else if(p.market==='incomplete')status='Incomplete · settlement unverified';
 else{
 f=find([p.team,p.opponent,0],p.date,p.league);
+if(f)status=f.detail||'Scheduled';
+else status='Matchup unavailable in score feed';
 if(f&&(f.live||f.final)&&Number.isFinite(f.sa)&&Number.isFinite(f.sb)){
 const margin=p.market==='moneyline'?f.sa-f.sb:p.market==='spread'?f.sa-f.sb+p.line:p.market==='total'?(under?p.line-f.sa-f.sb:f.sa+f.sb-p.line):p.market==='team-over'?f.sa-p.line:p.line-f.sa;
 score=p.team+' '+f.sa+' · '+p.opponent+' '+f.sb;
